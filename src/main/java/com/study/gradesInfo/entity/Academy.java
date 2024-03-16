@@ -15,7 +15,10 @@ public class Academy {
     private String Name;
     private Integer ClassNumber;
 
-    public interface update extends Default {}
-    public interface delete extends Default{}
+    public interface update extends Default {
+    }
+
+    public interface delete extends Default {
+    }
 
 }

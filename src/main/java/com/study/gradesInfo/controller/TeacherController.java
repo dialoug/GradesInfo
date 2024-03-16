@@ -31,13 +31,14 @@ public class TeacherController {
     }
 
     @PostMapping("/addstudent")
-    public Result addStudent(@RequestBody Student student){
+    public Result addStudent(@RequestBody Student student) {
         studentService.addStudent(student);
         return Result.success();
     }
+
     @GetMapping("/getstudent")
-    public Result<List<Student>> getStudentList(){
-        List<Student> ls=studentService.getStudentListByStudentId();
+    public Result<List<Student>> getStudentList() {
+        List<Student> ls = studentService.getStudentListByStudentId();
         return Result.success(ls);
     }
 

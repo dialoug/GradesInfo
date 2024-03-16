@@ -17,9 +17,15 @@ public class StudentController {
     StudentService studentService;
 
     @GetMapping
-    public Result<List<Student>> studentListByClass(Long classId){
-        List<Student> ls=studentService.getStudentListByClassId(classId);
+    public Result<List<Student>> studentListByClass(Long classId) {
+        List<Student> ls = studentService.getStudentListByClassId(classId);
         return Result.success(ls);
+    }
+
+    @PostMapping
+    public Result addStudent() {
+
+        return Result.success();
     }
 
 }

@@ -22,24 +22,40 @@ public class AdminController {
     private TeacherService teacherService;
 
     @GetMapping("/admininfo")
-    public Result<Admin> adminInfo(@RequestHeader(name = "Authorization") String token){
-        Map<String,Object> user= JwtUtil.parseToken(token);
-        String username=(String) user.get("username");
-        Admin admin=adminService.findAdminByUsername(username);
+    public Result<Admin> adminInfo(@RequestHeader(name = "Authorization") String token) {
+        Map<String, Object> user = JwtUtil.parseToken(token);
+        String username = (String) user.get("username");
+        Admin admin = adminService.findAdminByUsername(username);
         return Result.success(admin);
     }
-        @PostMapping("/addteacher")
-    public Result addTeacher(@Pattern(regexp = "^[0-9]{5,20}$") String teacherId){
-        Teacher teacher=teacherService.findTeacherByTeacherId(teacherId);
-        if (teacher==null){
+
+    @PostMapping("/addteacher")
+    public Result addTeacher(@Pattern(regexp = "^[0-9]{5,20}$") String teacherId) {
+        Teacher teacher = teacherService.findTeacherByTeacherId(teacherId);
+        if (teacher == null) {
             adminService.addTeacher(teacherId);
             return Result.success();
-        }else {
+        } else {
             return Result.error("该教师ID已占用！");
         }
-
-
     }
 
+    @PutMapping("/addadmin")
+    public Result addAdmin(@RequestBody Admin admin) {
+        adminService.addAdmin(admin);
+        return Result.success();
+    }
+
+    @PutMapping("/update")
+    public Result update(@RequestBody Admin admin) {
+        adminService.updateAdmin(admin);
+        return Result.success();
+    }
+
+    @PostMapping("/deleteteacher")
+    public Result deleteTeacher() {
+
+        return Result.success();
+    }
 
 }

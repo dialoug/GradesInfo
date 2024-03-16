@@ -12,6 +12,7 @@ import java.util.List;
 public class ProjectServiceImp implements ProjectService {
     @Autowired
     ProjectMapper projectMapper;
+
     @Override
     public void addProject(Project project) {
         projectMapper.addProject(project);
@@ -19,7 +20,7 @@ public class ProjectServiceImp implements ProjectService {
 
     @Override
     public List<Project> getProjectList() {
-        List<Project> projects= projectMapper.getProjectList();
+        List<Project> projects = projectMapper.getProjectList();
         return projects;
     }
 }

@@ -57,7 +57,7 @@ public class DepartmentController {
     }
 
     @PutMapping("/classedit")
-    public Result<Class> classEdit(@RequestBody @Validated(Class.update.class)Class clas) {
+    public Result<Class> classEdit(@RequestBody @Validated(Class.update.class) Class clas) {
         departmentService.updateClass(clas);
         return Result.success();
     }

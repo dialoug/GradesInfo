@@ -23,6 +23,7 @@ public interface StudentMapper {
             "(select studentid from student_teacher where teacherid=" +
             "(select typeid from user_type where username=#{username} and type=1))")
     void findStudentByUsername(String username);
+
     @Select("select * from student where classid=#{classId}")
     List<Student> getStudentByClassId(Long classId);
 }

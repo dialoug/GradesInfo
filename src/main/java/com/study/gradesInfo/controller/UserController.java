@@ -28,64 +28,65 @@ public class UserController {
     private UserService userService;
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
+
     @PostMapping("/register")
-    public Result register(@Pattern(regexp = "^\\S{5,20}$") String username,@Pattern(regexp = "^\\S{5,20}$") String password,String teacher){
-        User u=userService.findByUsername(username);
-        boolean haveTeacher=userService.findTeacherByUsername(teacher);
-        if (u==null){
-            if (haveTeacher==false){
+    public Result register(@Pattern(regexp = "^\\S{5,20}$") String username, @Pattern(regexp = "^\\S{5,20}$") String password, String teacher) {
+        User u = userService.findByUsername(username);
+        boolean haveTeacher = userService.findTeacherByUsername(teacher);
+        if (u == null) {
+            if (haveTeacher == false) {
                 return Result.error("非本校教师，无法注册");
-            }else {
-                userService.register(username,password,1);
+            } else {
+                userService.register(username, password, teacher, 1);
                 return Result.success("注册教师成功");
             }
-        }else {
+        } else {
             return Result.error("用户名被占用");
         }
     }
+
     @PostMapping("/login")
-    public Result login(@Pattern(regexp = "^\\S{5,20}$") String username,@Pattern(regexp = "^\\S{5,20}$") String password){
-        User u=userService.findByUsername(username);
-        if (u==null){
+    public Result login(@Pattern(regexp = "^\\S{5,20}$") String username, @Pattern(regexp = "^\\S{5,20}$") String password) {
+        User u = userService.findByUsername(username);
+        if (u == null) {
             return Result.error("用户名不存在");
-        }else {
-            if (password.equals(u.getPassword())){
+        } else {
+            if (password.equals(u.getPassword())) {
 
-                Map<String,Object>claims=new HashMap<>();
-                claims.put("id",u.getId());
-                claims.put("username",u.getUserName());
-                claims.put("usertype",u.getUserType());
+                Map<String, Object> claims = new HashMap<>();
+                claims.put("id", u.getId());
+                claims.put("username", u.getUserName());
+                claims.put("usertype", u.getUserType());
 
-                String token= JwtUtil.genToken(claims);
-                ValueOperations operations=stringRedisTemplate.opsForValue();
-                operations.set(token,token,JwtUtil.time, TimeUnit.MILLISECONDS);
+                String token = JwtUtil.genToken(claims);
+                ValueOperations operations = stringRedisTemplate.opsForValue();
+                operations.set(token, token, JwtUtil.time, TimeUnit.MILLISECONDS);
                 return Result.success(token);
-            }
-            else return Result.error("密码错误");
+            } else return Result.error("密码错误");
         }
     }
 
     @GetMapping("/userinfo")
-    public Result<User> userInfo(){
-        Map<String,Object>user= ThreadLocalUtil.get();
-        String username=(String) user.get("username");
-        User userinfo=userService.findByUsername(username);
+    public Result<User> userInfo() {
+        Map<String, Object> user = ThreadLocalUtil.get();
+        String username = (String) user.get("username");
+        User userinfo = userService.findByUsername(username);
         return Result.success(userinfo);
     }
 
     @PutMapping("/updatepwd")
-    public Result update(@RequestBody Map<String,String> password,@RequestHeader("Authorization") String token){
-        String oldPassword=password.get("oldPassword");
-        String newPassword=password.get("newPassword");
-        String confPassword=password.get("confPassword");
-        if (oldPassword.isEmpty()||newPassword.isEmpty()||confPassword.isEmpty())
+    public Result update(@RequestBody Map<String, String> password, @RequestHeader("Authorization") String token) {
+        String oldPassword = password.get("oldPassword");
+        String newPassword = password.get("newPassword");
+        String confPassword = password.get("confPassword");
+        if (oldPassword.isEmpty() || newPassword.isEmpty() || confPassword.isEmpty())
             return Result.error("缺少参数");
         if (!newPassword.equals(confPassword))
             return Result.error(newPassword);
-        Map<String,Object>user= ThreadLocalUtil.get();
-        String username=(String) user.get("username");
-        User confUser=userService.findByUsername(username);
-        if (!confUser.getPassword().equals(oldPassword)){
+        Map<String, Object> user = ThreadLocalUtil.get();
+        String username = (String) user.get("username");
+        User confUser = userService.findByUsername(username);
+        if (!confUser.getPassword().equals(oldPassword)) {
             return Result.error("原密码不正确");
         }
         userService.updatePwd(newPassword);

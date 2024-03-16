@@ -19,18 +19,18 @@ public class LoginInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String token=request.getHeader("Authorization");
+        String token = request.getHeader("Authorization");
         try {
-            ValueOperations<String,String>operations=stringRedisTemplate.opsForValue();
-            String redisToken=operations.get(token);
-            if (redisToken==null){
+            ValueOperations<String, String> operations = stringRedisTemplate.opsForValue();
+            String redisToken = operations.get(token);
+            if (redisToken == null) {
                 throw new RuntimeException();
             }
 
-            Map<String,Object> claims= JwtUtil.parseToken(token);
+            Map<String, Object> claims = JwtUtil.parseToken(token);
             ThreadLocalUtil.set(claims);
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
             response.setStatus(407);
             return false;
         }
