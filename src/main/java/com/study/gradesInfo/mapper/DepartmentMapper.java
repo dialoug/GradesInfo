@@ -1,7 +1,7 @@
 package com.study.gradesInfo.mapper;
 
-import com.study.gradesInfo.entity.Academy;
-import com.study.gradesInfo.entity.Class;
+import com.study.gradesInfo.entity.department.Academy;
+import com.study.gradesInfo.entity.department.Class;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;

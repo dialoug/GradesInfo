@@ -1,4 +1,4 @@
-package com.study.gradesInfo.entity;
+package com.study.gradesInfo.entity.department;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -6,16 +6,14 @@ import jakarta.validation.groups.Default;
 import lombok.Data;
 
 @Data
-public class Class {
+public class Academy {
     @NotNull(groups = {update.class, delete.class})
-    private int Id;
+    private int id;
     @NotNull
     private Long AcademyId;
-    @NotNull
-    private Long ClassId;
     @NotEmpty
-    private String ClassName;
-    private int StudentNumber;
+    private String Name;
+    private Integer ClassNumber;
 
     public interface update extends Default {
     }

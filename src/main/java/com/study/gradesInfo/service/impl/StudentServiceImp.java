@@ -19,8 +19,8 @@ public class StudentServiceImp implements StudentService {
     TeacherMapper teacherMapper;
 
     @Override
-    public Student findStudentByStudentName(String studentName) {
-        return studentMapper.findStudentById(studentMapper.findStudentIdByStudentName(studentName));
+    public Student findStudentByStudentId(String studentId) {
+        return studentMapper.findStudentById(studentId);
     }
 
     @Override
@@ -30,17 +30,13 @@ public class StudentServiceImp implements StudentService {
     }
 
     @Override
-    public List<Student> getStudentListByStudentId() {
-        Map<String, Object> map = ThreadLocalUtil.get();
-        String username = (String) map.get("username");
-        //List<String>studentIdList=studentMapper.findStudentIdByTeacherId(teacherMapper.findTeacherIdByUsername(username));
-        studentMapper.findStudentByUsername(username);
-
-        return null;
+    public List<Student> getStudentListByClassId(Long classId) {
+        return studentMapper.getStudentByClassId(classId);
     }
 
     @Override
-    public List<Student> getStudentListByClassId(Long classId) {
-        return studentMapper.getStudentByClassId(classId);
+    public List<Student> findStudentByTeacherId() {
+        Map<String,Object>map=ThreadLocalUtil.get();
+        return studentMapper.getStudentByTeacherId((String)map.get("username"));
     }
 }

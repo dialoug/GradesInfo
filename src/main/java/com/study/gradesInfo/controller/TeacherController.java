@@ -5,6 +5,7 @@ import com.study.gradesInfo.entity.Student;
 import com.study.gradesInfo.entity.user.Teacher;
 import com.study.gradesInfo.service.StudentService;
 import com.study.gradesInfo.service.TeacherService;
+import com.study.gradesInfo.utils.JwtUtil;
 import com.study.gradesInfo.utils.ThreadLocalUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +31,7 @@ public class TeacherController {
         return Result.success(teacher);
     }
 
-    @PostMapping("/addstudent")
+    @PutMapping("/addstudent")
     public Result addStudent(@RequestBody Student student) {
         studentService.addStudent(student);
         return Result.success();
@@ -38,7 +39,7 @@ public class TeacherController {
 
     @GetMapping("/getstudent")
     public Result<List<Student>> getStudentList() {
-        List<Student> ls = studentService.getStudentListByStudentId();
+        List<Student> ls = studentService.findStudentByTeacherId();
         return Result.success(ls);
     }
 

@@ -1,7 +1,7 @@
 package com.study.gradesInfo.controller;
 
-import com.study.gradesInfo.entity.Academy;
-import com.study.gradesInfo.entity.Class;
+import com.study.gradesInfo.entity.department.Academy;
+import com.study.gradesInfo.entity.department.Class;
 import com.study.gradesInfo.entity.utils.Result;
 import com.study.gradesInfo.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;

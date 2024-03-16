@@ -1,8 +1,8 @@
 package com.study.gradesInfo.service;
 
 
-import com.study.gradesInfo.entity.Academy;
-import com.study.gradesInfo.entity.Class;
+import com.study.gradesInfo.entity.department.Academy;
+import com.study.gradesInfo.entity.department.Class;
 
 import java.util.List;
 
