@@ -16,15 +16,10 @@ public class ProjectController {
     @Autowired
     private ProjectService projectService;
 
-    @PostMapping
-    public Result addProject(@RequestBody @Validated Project project) {
-        projectService.addProject(project);
-        return Result.success();
-    }
-
     @GetMapping
     public Result<List<Project>> projectList() {
         List<Project> projects = projectService.getProjectList();
         return Result.success((projects));
     }
+
 }

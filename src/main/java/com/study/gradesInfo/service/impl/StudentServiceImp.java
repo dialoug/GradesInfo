@@ -44,4 +44,9 @@ public class StudentServiceImp implements StudentService {
         Map<String,Object>map=ThreadLocalUtil.get();
         studentMapper.addStudentTeacher((String)map.get("username"),studentId);
     }
+
+    @Override
+    public void updateStudent(Student student) {
+        studentMapper.updateStudent(student);
+    }
 }

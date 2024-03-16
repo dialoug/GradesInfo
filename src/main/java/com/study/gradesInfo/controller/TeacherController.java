@@ -38,7 +38,6 @@ public class TeacherController {
             studentService.addStudentTeacher(student.getStudentId());
             return Result.success();
         }else return Result.error("该学生已存在！");
-
     }
 
     @GetMapping("/getstudent")
@@ -47,5 +46,14 @@ public class TeacherController {
         return Result.success(ls);
     }
 
-
+    @PutMapping("/updatestudent")
+    public Result updateStudent(@RequestBody Student student){
+        studentService.updateStudent(student);
+        return Result.success();
+    }
+    @PutMapping("/updateteacher")
+    public Result updateTeacher(Teacher teacher){
+        teacherService.updateTeacher(teacher);
+        return Result.success();
+    }
 }

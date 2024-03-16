@@ -14,4 +14,6 @@ public interface StudentService {
     List<Student> findStudentByTeacherId();
 
     void addStudentTeacher(String studentId);
+
+    void updateStudent(Student student);
 }

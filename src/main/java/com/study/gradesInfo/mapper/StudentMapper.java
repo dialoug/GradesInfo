@@ -4,6 +4,7 @@ import com.study.gradesInfo.entity.Student;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -27,4 +28,6 @@ public interface StudentMapper {
     @Insert("insert into student_teacher(studentid, teacherid) VALUES (#{studentId},(" +
             "select typeid from user_type where username=#{username} and type=1))")
     void addStudentTeacher(String username,String studentId);
+    @Update("update student set studentname=#{StudentName},classid=#{ClassId},gender=#{Gender},age=#{Age},date=now()")
+    void updateStudent(Student student);
 }

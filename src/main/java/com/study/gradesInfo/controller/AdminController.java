@@ -1,13 +1,16 @@
 package com.study.gradesInfo.controller;
 
+import com.study.gradesInfo.entity.Project;
 import com.study.gradesInfo.entity.utils.Result;
 import com.study.gradesInfo.entity.user.Admin;
 import com.study.gradesInfo.entity.user.Teacher;
 import com.study.gradesInfo.service.AdminService;
+import com.study.gradesInfo.service.ProjectService;
 import com.study.gradesInfo.service.TeacherService;
 import com.study.gradesInfo.utils.JwtUtil;
 import jakarta.validation.constraints.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -15,7 +18,8 @@ import java.util.Map;
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
-
+    @Autowired
+    private ProjectService projectService;
     @Autowired
     private AdminService adminService;
     @Autowired
@@ -55,6 +59,12 @@ public class AdminController {
     @PostMapping("/deleteteacher")
     public Result deleteTeacher() {
 
+        return Result.success();
+    }
+
+    @PostMapping
+    public Result addProject(@RequestBody @Validated Project project) {
+        projectService.addProject(project);
         return Result.success();
     }
 

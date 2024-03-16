@@ -7,4 +7,6 @@ public interface TeacherService {
 
 
     Teacher findTeacherByTeacherId(String teacherId);
+
+    void updateTeacher(Teacher teacher);
 }

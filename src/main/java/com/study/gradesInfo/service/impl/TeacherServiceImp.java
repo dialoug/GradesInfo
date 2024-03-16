@@ -21,4 +21,9 @@ public class TeacherServiceImp implements TeacherService {
         return teacherMapper.findTeacherByTeacherId(teacherId);
     }
 
+    @Override
+    public void updateTeacher(Teacher teacher) {
+        teacherMapper.updateTeacher(teacher);
+    }
+
 }
