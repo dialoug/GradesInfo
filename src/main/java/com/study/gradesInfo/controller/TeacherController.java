@@ -33,8 +33,12 @@ public class TeacherController {
 
     @PutMapping("/addstudent")
     public Result addStudent(@RequestBody Student student) {
-        studentService.addStudent(student);
-        return Result.success();
+        if (studentService.findStudentByStudentId(student.getStudentId())==null){
+            studentService.addStudent(student);
+            studentService.addStudentTeacher(student.getStudentId());
+            return Result.success();
+        }else return Result.error("该学生已存在！");
+
     }
 
     @GetMapping("/getstudent")

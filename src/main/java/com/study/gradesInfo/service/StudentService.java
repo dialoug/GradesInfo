@@ -12,4 +12,6 @@ public interface StudentService {
     List<Student> getStudentListByClassId(Long classId);
 
     List<Student> findStudentByTeacherId();
+
+    void addStudentTeacher(String studentId);
 }

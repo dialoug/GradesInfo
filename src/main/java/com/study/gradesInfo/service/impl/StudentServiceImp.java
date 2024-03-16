@@ -26,7 +26,6 @@ public class StudentServiceImp implements StudentService {
     @Override
     public void addStudent(Student student) {
         studentMapper.addStudent(student);
-
     }
 
     @Override
@@ -38,5 +37,11 @@ public class StudentServiceImp implements StudentService {
     public List<Student> findStudentByTeacherId() {
         Map<String,Object>map=ThreadLocalUtil.get();
         return studentMapper.getStudentByTeacherId((String)map.get("username"));
+    }
+
+    @Override
+    public void addStudentTeacher(String studentId) {
+        Map<String,Object>map=ThreadLocalUtil.get();
+        studentMapper.addStudentTeacher((String)map.get("username"),studentId);
     }
 }

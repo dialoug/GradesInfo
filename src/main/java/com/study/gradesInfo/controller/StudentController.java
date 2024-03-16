@@ -22,10 +22,5 @@ public class StudentController {
         return Result.success(ls);
     }
 
-    @PostMapping
-    public Result addStudent() {
-
-        return Result.success();
-    }
 
 }

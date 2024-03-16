@@ -23,4 +23,8 @@ public interface StudentMapper {
             "select * from student_teacher where teacherid=(" +
             "select typeid from user_type where username=#{username} and type=1))")
     List<Student> getStudentByTeacherId(String username);
+
+    @Insert("insert into student_teacher(studentid, teacherid) VALUES (#{studentId},(" +
+            "select typeid from user_type where username=#{username} and type=1))")
+    void addStudentTeacher(String username,String studentId);
 }
