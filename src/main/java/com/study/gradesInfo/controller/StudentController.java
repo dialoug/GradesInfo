@@ -21,7 +21,6 @@ public class StudentController {
         List<Student> ls = studentService.getStudentListByClassId(classId);
         return Result.success(ls);
     }
-    @CrossOrigin
     @GetMapping
     public Result<List<Student>> studentList() {
         List<Student> ls = studentService.getStudentList();

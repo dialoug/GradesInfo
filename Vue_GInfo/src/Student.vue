@@ -3,7 +3,7 @@ import axios from "axios";
 import { ref } from "vue";
 const StudentList = ref([])
 
-axios.get('http://localhost:9090/student')
+axios.get('/api/student')
     .then((result) => {
         StudentList.value = result.data.data;
         console.log(result.data);
@@ -27,7 +27,7 @@ axios.get('http://localhost:9090/student')
         <br />
         <table border="1 solid" colspa="0" cellspacing="0">
             <tr>
-                <th>文章标题</th>
+                <th>文</th>
                 <th>分类</th>
                 <th>发表时间 </th>
                 <th>状态 </th>
