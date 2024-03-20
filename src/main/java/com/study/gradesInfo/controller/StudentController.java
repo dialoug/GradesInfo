@@ -16,9 +16,15 @@ public class StudentController {
     @Autowired
     StudentService studentService;
 
-    @GetMapping
+    @PostMapping
     public Result<List<Student>> studentListByClass(Long classId) {
         List<Student> ls = studentService.getStudentListByClassId(classId);
+        return Result.success(ls);
+    }
+    @CrossOrigin
+    @GetMapping
+    public Result<List<Student>> studentList() {
+        List<Student> ls = studentService.getStudentList();
         return Result.success(ls);
     }
 

@@ -16,4 +16,6 @@ public interface StudentService {
     void addStudentTeacher(String studentId);
 
     void updateStudent(Student student);
+
+    List<Student> getStudentList();
 }

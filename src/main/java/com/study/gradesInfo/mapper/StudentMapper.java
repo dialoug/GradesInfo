@@ -30,4 +30,7 @@ public interface StudentMapper {
     void addStudentTeacher(String username,String studentId);
     @Update("update student set studentname=#{StudentName},classid=#{ClassId},gender=#{Gender},age=#{Age},date=now()")
     void updateStudent(Student student);
+
+    @Select("select * from student")
+    List<Student> getStudentAll();
 }

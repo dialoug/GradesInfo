@@ -49,4 +49,9 @@ public class StudentServiceImp implements StudentService {
     public void updateStudent(Student student) {
         studentMapper.updateStudent(student);
     }
+
+    @Override
+    public List<Student> getStudentList() {
+        return studentMapper.getStudentAll();
+    }
 }
