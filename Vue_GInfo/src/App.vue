@@ -1,11 +1,12 @@
 <script setup>
-import Student from "./Student.vue";
+import Student from "./views/Student.vue";
+import Login from "./views/Login.vue";
 
 </script>
 
 <template>
 
-    <Student />
+    <Login />
 
 
 </template>
