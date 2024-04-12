@@ -1,17 +1,13 @@
 package com.study.gradesInfo.controller;
-
 import com.study.gradesInfo.entity.utils.Result;
-import com.study.gradesInfo.entity.Student;
 import com.study.gradesInfo.entity.user.Teacher;
-import com.study.gradesInfo.service.StudentService;
 import com.study.gradesInfo.service.TeacherService;
-import com.study.gradesInfo.utils.JwtUtil;
 import com.study.gradesInfo.utils.ThreadLocalUtil;
+import jakarta.validation.constraints.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -20,8 +16,6 @@ public class TeacherController {
 
     @Autowired
     TeacherService teacherService;
-    @Autowired
-    StudentService studentService;
 
     @GetMapping("/teacherinfo")
     public Result<Teacher> teacherInfo() {
@@ -31,28 +25,26 @@ public class TeacherController {
         return Result.success(teacher);
     }
 
-    @PutMapping("/addstudent")
-    public Result addStudent(@RequestBody Student student) {
-        if (studentService.findStudentByStudentId(student.getStudentId())==null){
-            studentService.addStudent(student);
-            studentService.addStudentTeacher(student.getStudentId());
+
+    @PostMapping("/addteacher")
+    public Result addTeacher(@Pattern(regexp = "^[0-9]{5,20}$") String teacherId) {
+        Teacher teacher = teacherService.findTeacherByTeacherId(teacherId);
+        if (teacher == null) {
+            teacherService.addTeacher(teacherId);
             return Result.success();
-        }else return Result.error("该学生已存在！");
+        } else {
+            return Result.error("该教师ID已占用！");
+        }
     }
 
-    @GetMapping("/getstudent")
-    public Result<List<Student>> getStudentList() {
-        List<Student> ls = studentService.findStudentByTeacherId();
-        return Result.success(ls);
-    }
-
-    @PutMapping("/updatestudent")
-    public Result updateStudent(@RequestBody Student student){
-        studentService.updateStudent(student);
+    @PostMapping("/deleteteacher")
+    public Result deleteTeacher() {
+        teacherService.deleteTeacher();
         return Result.success();
     }
+
     @PutMapping("/updateteacher")
-    public Result updateTeacher(Teacher teacher){
+    public Result updateTeacher(Teacher teacher) {
         teacherService.updateTeacher(teacher);
         return Result.success();
     }

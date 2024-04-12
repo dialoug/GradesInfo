@@ -9,4 +9,8 @@ public interface TeacherService {
     Teacher findTeacherByTeacherId(String teacherId);
 
     void updateTeacher(Teacher teacher);
+
+    void deleteTeacher();
+
+    void addTeacher(String teacherId);
 }

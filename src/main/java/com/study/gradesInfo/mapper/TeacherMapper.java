@@ -1,6 +1,7 @@
 package com.study.gradesInfo.mapper;
 
 import com.study.gradesInfo.entity.user.Teacher;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -15,4 +16,10 @@ public interface TeacherMapper {
 
     @Update("update teacher set teachername=#{TeacherName},Gender=#{Gender},phonenumber=#{PhoneNumber}")
     void updateTeacher(Teacher teacher);
+
+    @Update("")
+    void deleteTeacher();
+
+    @Insert("")
+    void addTeacher(String teacherId);
 }

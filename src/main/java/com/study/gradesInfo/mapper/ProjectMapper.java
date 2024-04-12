@@ -4,6 +4,7 @@ import com.study.gradesInfo.entity.Project;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -15,4 +16,10 @@ public interface ProjectMapper {
 
     @Select("select * from project")
     List<Project> getProjectList();
+
+    @Update("")
+    void updateProject(Project project);
+
+    @Select("")
+    Project getProjectById(String projectId);
 }

@@ -16,7 +16,7 @@ public class DepartmentController {
     @Autowired
     DepartmentService departmentService;
 
-    @PostMapping("/academy")
+    @PostMapping("/addAcademy")
     public Result addAcademy(@RequestBody @Validated Academy academy) {
         departmentService.addAcademy(academy);
         return Result.success(academy);

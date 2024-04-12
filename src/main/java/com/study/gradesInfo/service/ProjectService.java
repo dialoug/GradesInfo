@@ -8,4 +8,8 @@ public interface ProjectService {
     void addProject(Project project);
 
     List<Project> getProjectList();
+
+    void updateProject(Project project);
+
+    Project getProjectById(String projectId);
 }

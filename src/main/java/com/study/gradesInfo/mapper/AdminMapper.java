@@ -16,7 +16,7 @@ public interface AdminMapper {
     @Select("select * from admin where workid=#{workId}")
     Admin findAdminByAdminId(String workId);
 
-    @Select("select typeid from user_type where username=#{username} and type=3")
+
     String findWorkIdByUsername(String username);
 
     @Insert("insert into admin(workid, name, phonenumber, date) VALUES (#{WorkId},#{Name},#{PhoneNumber},now())")

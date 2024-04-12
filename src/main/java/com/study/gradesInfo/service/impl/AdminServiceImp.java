@@ -13,12 +13,6 @@ public class AdminServiceImp implements AdminService {
     private AdminMapper adminMapper;
     @Autowired
     private UserMapper userMapper;
-
-    @Override
-    public void addTeacher(String teacherId) {
-        adminMapper.addTeacherId(teacherId);
-    }
-
     @Override
     public Admin findAdminByUsername(String username) {
         return adminMapper.findAdminByAdminId(adminMapper.findWorkIdByUsername(username));

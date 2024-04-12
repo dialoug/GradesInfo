@@ -23,4 +23,14 @@ public class ProjectServiceImp implements ProjectService {
         List<Project> projects = projectMapper.getProjectList();
         return projects;
     }
+
+    @Override
+    public void updateProject(Project project) {
+        projectMapper.updateProject(project);
+    }
+
+    @Override
+    public Project getProjectById(String projectId) {
+        return projectMapper.getProjectById(projectId);
+    }
 }
