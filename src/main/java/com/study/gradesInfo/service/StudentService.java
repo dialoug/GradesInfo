@@ -9,6 +9,8 @@ public interface StudentService {
 
     void addStudentTeacher(String studentId);
 
+    void addStudentClass(String studentId, String classId);
+
     void deleteStudent(String studentId);
 
     void updateStudent(Student student);
@@ -28,4 +30,5 @@ public interface StudentService {
     List<Student> getStudentList();
 
 
+    void initializeStudentProject(String studentId);
 }

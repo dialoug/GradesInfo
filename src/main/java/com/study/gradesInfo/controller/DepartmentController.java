@@ -25,8 +25,12 @@ public class DepartmentController {
 
     //教师权限
     @PostMapping("/addClass")
-    public Result addClass(@RequestBody @Validated Class clas) {
-        departmentService.addClass(clas);
+    public Result addClass(@RequestBody @Validated Class clas, String academyId) {
+        if (departmentService.getClassById(clas.getClassId()) == null) {
+            departmentService.addClass(clas);
+            departmentService.addClassAcademy(clas.getClassId(), academyId);
+        } else
+            Result.error("该班级已存在！");
         return Result.success(clas);
     }
 

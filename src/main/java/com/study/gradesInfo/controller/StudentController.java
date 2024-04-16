@@ -16,13 +16,14 @@ public class StudentController {
     @Autowired
     StudentService studentService;
 
-
     //教师权限
     @PutMapping("/add")
-    public Result addStudent(@RequestBody Student student) {
+    public Result addStudent(@RequestBody Student student, String classId) {
         if (studentService.findStudentByStudentId(student.getStudentId()) == null) {
             studentService.addStudent(student);
             studentService.addStudentTeacher(student.getStudentId());
+            studentService.addStudentClass(student.getStudentId(), classId);
+            studentService.initializeStudentProject(student.getStudentId());
             return Result.success();
         } else return Result.error("该学生已存在！");
     }

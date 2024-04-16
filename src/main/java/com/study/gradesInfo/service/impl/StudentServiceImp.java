@@ -15,8 +15,6 @@ import java.util.Map;
 public class StudentServiceImp implements StudentService {
     @Autowired
     StudentMapper studentMapper;
-    @Autowired
-    TeacherMapper teacherMapper;
 
     @Override
     public void addStudent(Student student) {
@@ -27,6 +25,11 @@ public class StudentServiceImp implements StudentService {
     public void addStudentTeacher(String studentId) {
         Map<String, Object> map = ThreadLocalUtil.get();
         studentMapper.addStudentTeacher((String) map.get("username"), studentId);
+    }
+
+    @Override
+    public void addStudentClass(String studentId, String classId) {
+        studentMapper.addStudentClass(studentId, classId);
     }
 
     @Override
@@ -53,6 +56,11 @@ public class StudentServiceImp implements StudentService {
     @Override
     public List<Student> getStudentList() {
         return studentMapper.getStudentAll();
+    }
+
+    @Override
+    public void initializeStudentProject(String studentId) {
+        studentMapper.initializeStudentProject(studentId);
     }
 
     @Override

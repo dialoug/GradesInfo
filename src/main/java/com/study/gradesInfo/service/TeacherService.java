@@ -8,6 +8,8 @@ public interface TeacherService {
 
     void addTeacher(String teacherId);
 
+    void addTeacherAcademy(String teacherId, String academyId);
+
     void deleteTeacher(String teacherId);
 
     void updateTeacher(Teacher teacher);
@@ -21,5 +23,6 @@ public interface TeacherService {
     List<Teacher> getTeacherList();
 
     List<Teacher> getTeacherByAcademy(Integer academyId);
+
 
 }

@@ -12,6 +12,8 @@ public interface DepartmentService {
 
     void addClass(Class clas);
 
+    void addClassAcademy(String classId, String academyId);
+
     void deleteAcademy(String academyId);
 
     void deleteClass(String classId);

@@ -22,10 +22,10 @@ public class TeacherController {
 
     //管理员权限
     @PostMapping("/add")
-    public Result addTeacher(@Pattern(regexp = "^[0-9]{5,20}$") String teacherId) {
-        Teacher teacher = teacherService.findTeacherByTeacherId(teacherId);
-        if (teacher == null) {
+    public Result addTeacher(@Pattern(regexp = "^[0-9]{5,20}$") String teacherId, String academyId) {
+        if (teacherService.findTeacherByTeacherId(teacherId) == null) {
             teacherService.addTeacher(teacherId);
+            teacherService.addTeacherAcademy(teacherId, academyId);
             return Result.success();
         } else {
             return Result.error("该教师ID已占用！");

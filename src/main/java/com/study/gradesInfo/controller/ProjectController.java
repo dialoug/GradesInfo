@@ -21,7 +21,10 @@ public class ProjectController {
     //管理员权限
     @PostMapping("add")
     public Result addProject(@RequestBody @Validated Project project) {
-        projectService.addProject(project);
+        if (projectService.getProjectById(project.getProjectId()) == null) {
+            projectService.addProject(project);
+        } else
+            return Result.error("该项目已存在！");
         return Result.success();
     }
 

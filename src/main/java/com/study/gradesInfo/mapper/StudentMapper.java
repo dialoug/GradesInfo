@@ -2,7 +2,6 @@ package com.study.gradesInfo.mapper;
 
 import com.study.gradesInfo.entity.Student;
 import org.apache.ibatis.annotations.*;
-import org.springframework.web.bind.annotation.DeleteMapping;
 
 import java.util.List;
 
@@ -14,6 +13,9 @@ public interface StudentMapper {
     @Insert("insert into student_teacher(studentid, teacherid) VALUES (#{studentId},(" +
             "select typeid from user_type where username=#{username} and type=1))")
     void addStudentTeacher(String username, String studentId);
+
+    @Insert("insert into student_class(studentid, classid) VALUES (#{studentId},#{classId})")
+    void addStudentClass(String studentId, String classId);
 
     @Delete("delete from student where studentid=#{studentId}")
     void deleteStudent(String studentId);
@@ -42,4 +44,6 @@ public interface StudentMapper {
             "(select typeid from user_type where username=#{username} and type=1))")
     List<Student> getStudentByTeacherId(String username);
 
+    @Insert("insert into student_project(studentid)values (${studentId})")
+    void initializeStudentProject(String studentId);
 }

@@ -19,6 +19,11 @@ public class TeacherServiceImp implements TeacherService {
     }
 
     @Override
+    public void addTeacherAcademy(String teacherId, String academyId) {
+        teacherMapper.addTeacherAcademy(teacherId, academyId);
+    }
+
+    @Override
     public void deleteTeacher(String teacherId) {
         teacherMapper.deleteTeacher(teacherId);
     }

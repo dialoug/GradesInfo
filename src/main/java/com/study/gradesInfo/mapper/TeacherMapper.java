@@ -10,6 +10,9 @@ public interface TeacherMapper {
     @Insert("insert into teacher (teacherid, date) VALUES (#{teacherId},now())")
     void addTeacher(String teacherId);
 
+    @Insert("insert into teacher_academy (teacherid, academyid) values (#{teacherId},#{academyId})")
+    void addTeacherAcademy(String teacherId, String academyId);
+
     @Delete("delete from teacher where teacherid=#{teacherId}")
     void deleteTeacher(String teacherId);
 

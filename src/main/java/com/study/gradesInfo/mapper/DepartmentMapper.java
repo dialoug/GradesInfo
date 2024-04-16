@@ -14,6 +14,9 @@ public interface DepartmentMapper {
     @Insert("insert into class(classid, name, date) VALUES (#{classId},#{className},now())")
     void addClass(Class clas);
 
+    @Insert("insert into class_academy(classid, academyid)VALUES (#{classId},#{academyId})")
+    void addClassAcademy(String classId, String academyId);
+
     @Delete("delete from class where classid=" +
             "(select * from class_academy where academyid=#{academyId})")
     void deleteClassByAcademyId(String academyId);
