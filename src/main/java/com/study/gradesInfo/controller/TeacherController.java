@@ -46,6 +46,13 @@ public class TeacherController {
         return Result.success();
     }
 
+    //管理员权限
+    @PutMapping("/update")
+    public Result updateTeacherAcademyId(String teacherId, String academyId) {
+        teacherService.updateTeacherAcademyId(teacherId, academyId);
+        return Result.success();
+    }
+
     @GetMapping("/list")
     public Result<List<Teacher>> teacherList() {
         List<Teacher> lt = teacherService.getTeacherList();

@@ -10,12 +10,10 @@ public class Class {
     @NotNull(groups = {update.class, delete.class})
     private int Id;
     @NotNull
-    private String AcademyId;
-    @NotNull
-    private String ClassId;
+    private String classId;
     @NotEmpty
-    private String ClassName;
-    private int StudentNumber;
+    private String className;
+    private int studentNumber;
 
     public interface update extends Default {
     }

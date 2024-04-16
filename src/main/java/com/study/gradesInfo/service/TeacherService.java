@@ -12,6 +12,8 @@ public interface TeacherService {
 
     void updateTeacher(Teacher teacher);
 
+    void updateTeacherAcademyId(String teacherId, String academyId);
+
     Teacher findTeacherByUsername(String username);
 
     Teacher findTeacherByTeacherId(String teacherId);
@@ -19,4 +21,5 @@ public interface TeacherService {
     List<Teacher> getTeacherList();
 
     List<Teacher> getTeacherByAcademy(Integer academyId);
+
 }

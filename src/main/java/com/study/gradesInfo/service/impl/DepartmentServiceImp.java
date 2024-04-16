@@ -32,7 +32,18 @@ public class DepartmentServiceImp implements DepartmentService {
 
     @Override
     public void deleteClass(String classId) {
+        departmentMapper.deleteStudentByClassId(classId);
         departmentMapper.deleteClass(classId);
+    }
+
+    @Override
+    public void updateClass(Class clas) {
+        departmentMapper.updateClass(clas);
+    }
+
+    @Override
+    public void updateClassAcademyId(String classId, String academyId) {
+        departmentMapper.updateClassAcademyId(classId, academyId);
     }
 
     @Override
@@ -42,7 +53,7 @@ public class DepartmentServiceImp implements DepartmentService {
 
     @Override
     public List<Class> getClassListByAcademyId(String academyId) {
-        return departmentMapper.getClassList(academyId);
+        return departmentMapper.getClassListByAcademyId(academyId);
     }
 
     @Override
@@ -57,15 +68,7 @@ public class DepartmentServiceImp implements DepartmentService {
 
     @Override
     public void updateAcademy(Academy academy) {
-        if (departmentMapper.updateClassAcademyId(academy))
-            departmentMapper.updateAcademy(academy);
-
-    }
-
-    @Override
-    public void updateClass(Class clas) {
-        if (departmentMapper.updateStudentClassId(clas))
-            departmentMapper.updateClass(clas);
+        departmentMapper.updateAcademy(academy);
     }
 
 }

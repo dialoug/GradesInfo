@@ -41,6 +41,20 @@ public class StudentController {
         return Result.success();
     }
 
+    //教师权限
+    @PutMapping("/teacher")
+    public Result updateTeacher(String studentId, String teacherId) {
+        studentService.updateTeacher(studentId, teacherId);
+        return Result.success();
+    }
+
+    //教师权限
+    @PutMapping("/class")
+    public Result updateClass(String studentId, String classId) {
+        studentService.updateClass(studentId, classId);
+        return Result.success();
+    }
+
     @GetMapping("/list")
     public Result<List<Student>> studentList() {
         List<Student> ls = studentService.getStudentList();

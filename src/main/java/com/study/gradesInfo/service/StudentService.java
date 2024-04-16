@@ -13,6 +13,10 @@ public interface StudentService {
 
     void updateStudent(Student student);
 
+    void updateTeacher(String studentId, String teacherId);
+
+    void updateClass(String studentId, String classId);
+
     Student findStudentByStudentId(String studentId);
 
 

@@ -8,7 +8,7 @@ import java.util.List;
 
 @Mapper
 public interface StudentMapper {
-    @Insert("insert into student(studentid, studentname, classid, gender, age, date) VALUES (#{StudentId},#{StudentName},#{Gender},#{Age},#{ClassId},now())")
+    @Insert("insert into student(studentid, studentname, gender, age, date) VALUES (#{studentId},#{studentName},#{gender},#{age},now())")
     void addStudent(Student student);
 
     @Insert("insert into student_teacher(studentid, teacherid) VALUES (#{studentId},(" +
@@ -18,8 +18,14 @@ public interface StudentMapper {
     @Delete("delete from student where studentid=#{studentId}")
     void deleteStudent(String studentId);
 
-    @Update("update student set studentname=#{StudentName},classid=#{ClassId},gender=#{Gender},age=#{Age},date=now()")
+    @Update("update student set studentname=#{studentName},gender=#{gender},age=#{age},date=now() where studentid=#{studentId}")
     void updateStudent(Student student);
+
+    @Update("update student_teacher set teacherid=#{teacherId} where studentid=#{studentId}")
+    void updateTeacher(String studentId, String teacherId);
+
+    @Update("update student_class set classid=#{classId} where studentid=#{studentId}")
+    void updateClass(String studentId, String classId);
 
     @Select("select * from student")
     List<Student> getStudentAll();
@@ -27,7 +33,8 @@ public interface StudentMapper {
     @Select("select * from student where studentid=#{id}")
     Student findStudentById(String id);
 
-    @Select("select * from student where classid=#{classId}")
+    @Select("select * from student where studentid=" +
+            "(select * from student_class where classid=#{classId})")
     List<Student> getStudentByClassId(Long classId);
 
     @Select("select * from student where studentid=" +

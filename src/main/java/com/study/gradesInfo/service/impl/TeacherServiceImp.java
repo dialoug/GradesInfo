@@ -29,6 +29,11 @@ public class TeacherServiceImp implements TeacherService {
     }
 
     @Override
+    public void updateTeacherAcademyId(String teacherId, String academyId) {
+        teacherMapper.updateTeacherAcademyId(teacherId, academyId);
+    }
+
+    @Override
     public Teacher findTeacherByUsername(String username) {
         return teacherMapper.findTeacherByTeacherId(teacherMapper.findTeacherIdByUsername(username));
     }

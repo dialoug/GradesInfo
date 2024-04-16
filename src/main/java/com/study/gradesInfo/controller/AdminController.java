@@ -1,6 +1,5 @@
 package com.study.gradesInfo.controller;
 
-import com.study.gradesInfo.entity.Project;
 import com.study.gradesInfo.entity.utils.Result;
 import com.study.gradesInfo.entity.user.Admin;
 import com.study.gradesInfo.service.AdminService;
@@ -48,6 +47,4 @@ public class AdminController {
         Admin admin = adminService.findAdminByUsername(username);
         return Result.success(admin);
     }
-
-
 }

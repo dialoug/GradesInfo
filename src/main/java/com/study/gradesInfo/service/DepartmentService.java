@@ -20,6 +20,8 @@ public interface DepartmentService {
 
     void updateClass(Class clas);
 
+    void updateClassAcademyId(String classId, String academyId);
+
     List<Academy> getAcademyList();
 
     List<Class> getClassListByAcademyId(String academyId);

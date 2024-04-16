@@ -10,11 +10,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Student {
     @NotNull(groups = {Class.update.class, Class.delete.class})
-    private String StudentId;
-    private String StudentName;
-    private String Gender;
-    private Integer Age;
-    private Integer ClassId;
+    private String studentId;
+    private String studentName;
+    private String gender;
+    private Integer age;
 
     public interface update extends Default {
     }

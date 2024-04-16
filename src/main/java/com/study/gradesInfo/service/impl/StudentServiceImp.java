@@ -18,7 +18,6 @@ public class StudentServiceImp implements StudentService {
     @Autowired
     TeacherMapper teacherMapper;
 
-
     @Override
     public void addStudent(Student student) {
         studentMapper.addStudent(student);
@@ -39,6 +38,17 @@ public class StudentServiceImp implements StudentService {
     public void updateStudent(Student student) {
         studentMapper.updateStudent(student);
     }
+
+    @Override
+    public void updateTeacher(String studentId, String teacherId) {
+        studentMapper.updateTeacher(studentId, teacherId);
+    }
+
+    @Override
+    public void updateClass(String studentId, String classId) {
+        studentMapper.updateClass(studentId, classId);
+    }
+
 
     @Override
     public List<Student> getStudentList() {

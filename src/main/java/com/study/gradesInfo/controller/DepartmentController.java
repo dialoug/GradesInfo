@@ -45,7 +45,7 @@ public class DepartmentController {
     }
 
     //管理员权限
-    @PutMapping("/eidtAcademy")
+    @PutMapping("/editAcademy")
     public Result<Academy> academyEdit(@RequestBody @Validated(Academy.update.class) Academy academy) {
         departmentService.updateAcademy(academy);
         return Result.success();
@@ -58,6 +58,12 @@ public class DepartmentController {
         return Result.success();
     }
 
+    //教师权限
+    @PutMapping("/editClassAcademyId")
+    public Result<Class> classAcademyIdEdit(String classId, String academyId) {
+        departmentService.updateClassAcademyId(classId, academyId);
+        return Result.success();
+    }
 
     @GetMapping("/listAcademy")
     public Result<List<Academy>> academyList() {
