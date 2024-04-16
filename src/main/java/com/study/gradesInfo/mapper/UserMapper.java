@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import java.util.List;
+
 
 @Mapper
 public interface UserMapper {
@@ -21,4 +23,9 @@ public interface UserMapper {
 
     @Insert("insert into user_type(username,typeid,type,date) values (#{username},#{typeId},#{type},now())")
     void addUserType(String username, String typeId, int type);
+
+    void deleteUser();
+
+    @Select("select * from user")
+    List<User> getAllUser();
 }

@@ -1,4 +1,6 @@
 package com.study.gradesInfo.controller;
+
+import com.study.gradesInfo.entity.Student;
 import com.study.gradesInfo.entity.utils.Result;
 import com.study.gradesInfo.entity.user.Teacher;
 import com.study.gradesInfo.service.TeacherService;
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -17,16 +20,8 @@ public class TeacherController {
     @Autowired
     TeacherService teacherService;
 
-    @GetMapping("/teacherinfo")
-    public Result<Teacher> teacherInfo() {
-        Map<String, Object> user = ThreadLocalUtil.get();
-        String username = (String) user.get("username");
-        Teacher teacher = teacherService.findTeacherByUsername(username);
-        return Result.success(teacher);
-    }
-
-
-    @PostMapping("/addteacher")
+    //管理员权限
+    @PostMapping("/add")
     public Result addTeacher(@Pattern(regexp = "^[0-9]{5,20}$") String teacherId) {
         Teacher teacher = teacherService.findTeacherByTeacherId(teacherId);
         if (teacher == null) {
@@ -37,15 +32,38 @@ public class TeacherController {
         }
     }
 
-    @PostMapping("/deleteteacher")
-    public Result deleteTeacher() {
-        teacherService.deleteTeacher();
+    //管理员权限
+    @PostMapping("/delete")
+    public Result deleteTeacher(String teacherId) {
+        teacherService.deleteTeacher(teacherId);
         return Result.success();
     }
 
-    @PutMapping("/updateteacher")
+    //管理员权限
+    @PutMapping("/update")
     public Result updateTeacher(Teacher teacher) {
         teacherService.updateTeacher(teacher);
         return Result.success();
     }
+
+    @GetMapping("/list")
+    public Result<List<Teacher>> teacherList() {
+        List<Teacher> lt = teacherService.getTeacherList();
+        return Result.success(lt);
+    }
+
+    @PostMapping("/listByAcademy")
+    public Result<List<Teacher>> teacherListByClass(Integer academyId) {
+        List<Teacher> lt = teacherService.getTeacherByAcademy(academyId);
+        return Result.success(lt);
+    }
+
+    @GetMapping("/info")
+    public Result<Teacher> teacherInfo() {
+        Map<String, Object> user = ThreadLocalUtil.get();
+        String username = (String) user.get("username");
+        Teacher teacher = teacherService.findTeacherByUsername(username);
+        return Result.success(teacher);
+    }
+
 }

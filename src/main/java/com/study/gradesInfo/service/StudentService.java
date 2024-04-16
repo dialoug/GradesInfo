@@ -5,17 +5,23 @@ import com.study.gradesInfo.entity.Student;
 import java.util.List;
 
 public interface StudentService {
+    void addStudent(Student student);
+
+    void addStudentTeacher(String studentId);
+
+    void deleteStudent(String studentId);
+
+    void updateStudent(Student student);
+
     Student findStudentByStudentId(String studentId);
 
-    void addStudent(Student student);
 
     List<Student> getStudentListByClassId(Long classId);
 
     List<Student> findStudentByTeacherId();
 
-    void addStudentTeacher(String studentId);
-
-    void updateStudent(Student student);
 
     List<Student> getStudentList();
+
+
 }

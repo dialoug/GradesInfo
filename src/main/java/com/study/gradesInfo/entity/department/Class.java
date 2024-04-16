@@ -10,9 +10,9 @@ public class Class {
     @NotNull(groups = {update.class, delete.class})
     private int Id;
     @NotNull
-    private Long AcademyId;
+    private String AcademyId;
     @NotNull
-    private Long ClassId;
+    private String ClassId;
     @NotEmpty
     private String ClassName;
     private int StudentNumber;

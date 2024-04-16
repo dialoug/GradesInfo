@@ -10,7 +10,7 @@ public class Academy {
     @NotNull(groups = {update.class, delete.class})
     private int id;
     @NotNull
-    private Long AcademyId;
+    private String AcademyId;
     @NotEmpty
     private String Name;
     private Integer ClassNumber;

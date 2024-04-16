@@ -1,5 +1,6 @@
 package com.study.gradesInfo.controller;
 
+import com.study.gradesInfo.entity.user.Teacher;
 import com.study.gradesInfo.entity.user.User;
 import com.study.gradesInfo.entity.utils.Result;
 import com.study.gradesInfo.service.UserService;
@@ -14,6 +15,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -45,6 +47,41 @@ public class UserController {
         }
     }
 
+    @PutMapping("/update")
+    public Result update(@RequestBody Map<String, String> password, @RequestHeader("Authorization") String token) {
+        String oldPassword = password.get("oldPassword");
+        String newPassword = password.get("newPassword");
+        String confPassword = password.get("confPassword");
+        if (oldPassword.isEmpty() || newPassword.isEmpty() || confPassword.isEmpty())
+            return Result.error("缺少参数");
+        if (!newPassword.equals(confPassword))
+            return Result.error(newPassword);
+        Map<String, Object> user = ThreadLocalUtil.get();
+        String username = (String) user.get("username");
+        User confUser = userService.findByUsername(username);
+        if (!confUser.getPassword().equals(oldPassword)) {
+            return Result.error("原密码不正确");
+        }
+        userService.updatePwd(newPassword);
+        ValueOperations<String, String> operations = stringRedisTemplate.opsForValue();
+        operations.getOperations().delete(token);
+        return Result.success();
+    }
+
+    @GetMapping("/list")
+    public Result<List<User>> userList() {
+        List<User> lu = userService.getUserList();
+        return Result.success(lu);
+    }
+
+    @GetMapping("/userinfo")
+    public Result<User> userInfo() {
+        Map<String, Object> user = ThreadLocalUtil.get();
+        String username = (String) user.get("username");
+        User userinfo = userService.findByUsername(username);
+        return Result.success(userinfo);
+    }
+
     @PostMapping("/login")
     public Result login(@Pattern(regexp = "^\\S{5,20}$") String username, @Pattern(regexp = "^\\S{5,20}$") String password) {
         User u = userService.findByUsername(username);
@@ -66,32 +103,4 @@ public class UserController {
         }
     }
 
-    @GetMapping("/userinfo")
-    public Result<User> userInfo() {
-        Map<String, Object> user = ThreadLocalUtil.get();
-        String username = (String) user.get("username");
-        User userinfo = userService.findByUsername(username);
-        return Result.success(userinfo);
-    }
-
-    @PutMapping("/updatepwd")
-    public Result update(@RequestBody Map<String, String> password, @RequestHeader("Authorization") String token) {
-        String oldPassword = password.get("oldPassword");
-        String newPassword = password.get("newPassword");
-        String confPassword = password.get("confPassword");
-        if (oldPassword.isEmpty() || newPassword.isEmpty() || confPassword.isEmpty())
-            return Result.error("缺少参数");
-        if (!newPassword.equals(confPassword))
-            return Result.error(newPassword);
-        Map<String, Object> user = ThreadLocalUtil.get();
-        String username = (String) user.get("username");
-        User confUser = userService.findByUsername(username);
-        if (!confUser.getPassword().equals(oldPassword)) {
-            return Result.error("原密码不正确");
-        }
-        userService.updatePwd(newPassword);
-        ValueOperations<String, String> operations = stringRedisTemplate.opsForValue();
-        operations.getOperations().delete(token);
-        return Result.success();
-    }
 }

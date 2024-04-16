@@ -1,10 +1,7 @@
 package com.study.gradesInfo.mapper;
 
 import com.study.gradesInfo.entity.Project;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -20,6 +17,9 @@ public interface ProjectMapper {
     @Update("")
     void updateProject(Project project);
 
-    @Select("")
+    @Select("select * from project where projectid=#{projectId}")
     Project getProjectById(String projectId);
+
+    @Delete("delete from project where projectid=#{projectId}")
+    void deleteProject(String projectId);
 }

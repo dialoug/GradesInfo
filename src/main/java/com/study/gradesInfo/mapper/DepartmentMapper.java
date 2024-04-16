@@ -17,17 +17,6 @@ public interface DepartmentMapper {
     @Insert("insert into class(classid, name, academyid, date) VALUES (#{ClassId},#{ClassName},#{AcademyId},now())")
     void addClass(Class clas);
 
-    @Select("select * from academy")
-    List<Academy> getAcademyList();
-
-    @Select("select * from class where academyid=#{academyId}")
-    List<Class> getClassList(String academyId);
-
-    @Select("select * from academy where academyid=#{academyId}")
-    Academy findAcademyById(String academyId);
-
-    @Select("select * from class where academyid=#{classId}")
-    Class findClassById(String classId);
 
     @Update("update academy set name=#{Name},academyid=#{AcademyId},date=now() where id=#{Id}")
     void updateAcademy(Academy academy);
@@ -40,4 +29,22 @@ public interface DepartmentMapper {
 
     @Update("update student set classid=#{ClassId},date=NOW() where classid=(select classid from class where id=#{Id})")
     boolean updateStudentClassId(Class clas);
+
+    @Select("select * from academy")
+    List<Academy> getAcademyList();
+
+    @Select("select * from class where academyid=#{academyId}")
+    List<Class> getClassList(String academyId);
+
+    @Select("select * from academy where academyid=#{academyId}")
+    Academy findAcademyById(String academyId);
+
+    @Select("select * from class where academyid=#{classId}")
+    Class findClassById(String classId);
+
+    void deleteClassByAcademyId(String academyId);
+
+    void deleteAcademy(String academyId);
+
+    void deleteClass(String classId);
 }

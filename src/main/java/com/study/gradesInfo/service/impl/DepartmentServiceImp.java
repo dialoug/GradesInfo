@@ -25,6 +25,17 @@ public class DepartmentServiceImp implements DepartmentService {
     }
 
     @Override
+    public void deleteAcademy(String academyId) {
+        departmentMapper.deleteClassByAcademyId(academyId);
+        departmentMapper.deleteAcademy(academyId);
+    }
+
+    @Override
+    public void deleteClass(String classId) {
+        departmentMapper.deleteClass(classId);
+    }
+
+    @Override
     public List<Academy> getAcademyList() {
         return departmentMapper.getAcademyList();
     }

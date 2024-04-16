@@ -19,9 +19,8 @@ public class ProjectServiceImp implements ProjectService {
     }
 
     @Override
-    public List<Project> getProjectList() {
-        List<Project> projects = projectMapper.getProjectList();
-        return projects;
+    public void deleteProject(String projectId) {
+        projectMapper.deleteProject(projectId);
     }
 
     @Override
@@ -30,7 +29,15 @@ public class ProjectServiceImp implements ProjectService {
     }
 
     @Override
+    public List<Project> getProjectList() {
+        List<Project> projects = projectMapper.getProjectList();
+        return projects;
+    }
+
+
+    @Override
     public Project getProjectById(String projectId) {
         return projectMapper.getProjectById(projectId);
     }
+
 }

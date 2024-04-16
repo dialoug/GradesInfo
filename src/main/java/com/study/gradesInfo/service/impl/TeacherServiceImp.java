@@ -6,10 +6,27 @@ import com.study.gradesInfo.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TeacherServiceImp implements TeacherService {
     @Autowired
     TeacherMapper teacherMapper;
+
+    @Override
+    public void addTeacher(String teacherId) {
+        teacherMapper.addTeacher(teacherId);
+    }
+
+    @Override
+    public void deleteTeacher(String teacherId) {
+        teacherMapper.deleteTeacher(teacherId);
+    }
+
+    @Override
+    public void updateTeacher(Teacher teacher) {
+        teacherMapper.updateTeacher(teacher);
+    }
 
     @Override
     public Teacher findTeacherByUsername(String username) {
@@ -22,18 +39,14 @@ public class TeacherServiceImp implements TeacherService {
     }
 
     @Override
-    public void updateTeacher(Teacher teacher) {
-        teacherMapper.updateTeacher(teacher);
+    public List<Teacher> getTeacherList() {
+        return teacherMapper.getAllTeacher();
     }
 
     @Override
-    public void deleteTeacher() {
-        teacherMapper.deleteTeacher();
+    public List<Teacher> getTeacherByAcademy(Integer academyId) {
+        return teacherMapper.getTeacherByAcademy(academyId);
     }
 
-    @Override
-    public void addTeacher(String teacherId) {
-        teacherMapper.addTeacher(teacherId);
-    }
 
 }

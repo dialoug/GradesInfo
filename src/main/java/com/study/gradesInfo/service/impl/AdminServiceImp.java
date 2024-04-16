@@ -7,16 +7,15 @@ import com.study.gradesInfo.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AdminServiceImp implements AdminService {
     @Autowired
     private AdminMapper adminMapper;
     @Autowired
     private UserMapper userMapper;
-    @Override
-    public Admin findAdminByUsername(String username) {
-        return adminMapper.findAdminByAdminId(adminMapper.findWorkIdByUsername(username));
-    }
+
 
     @Override
     public void addAdmin(Admin admin) {
@@ -26,7 +25,24 @@ public class AdminServiceImp implements AdminService {
     }
 
     @Override
+    public void deleteAdmin(String workId) {
+        userMapper.deleteUser();
+        adminMapper.deleteAdmin(workId);
+    }
+
+    @Override
     public void updateAdmin(Admin admin) {
         adminMapper.update(admin);
     }
+
+    @Override
+    public Admin findAdminByUsername(String username) {
+        return adminMapper.findAdminByAdminId(adminMapper.findWorkIdByUsername(username));
+    }
+
+    @Override
+    public List<Admin> getAdminList() {
+        return adminMapper.getAllAdmin();
+    }
+
 }

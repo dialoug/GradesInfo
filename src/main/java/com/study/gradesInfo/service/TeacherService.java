@@ -2,15 +2,21 @@ package com.study.gradesInfo.service;
 
 import com.study.gradesInfo.entity.user.Teacher;
 
+import java.util.List;
+
 public interface TeacherService {
-    Teacher findTeacherByUsername(String username);
 
+    void addTeacher(String teacherId);
 
-    Teacher findTeacherByTeacherId(String teacherId);
+    void deleteTeacher(String teacherId);
 
     void updateTeacher(Teacher teacher);
 
-    void deleteTeacher();
+    Teacher findTeacherByUsername(String username);
 
-    void addTeacher(String teacherId);
+    Teacher findTeacherByTeacherId(String teacherId);
+
+    List<Teacher> getTeacherList();
+
+    List<Teacher> getTeacherByAcademy(Integer academyId);
 }

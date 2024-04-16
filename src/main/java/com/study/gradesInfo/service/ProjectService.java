@@ -7,9 +7,13 @@ import java.util.List;
 public interface ProjectService {
     void addProject(Project project);
 
-    List<Project> getProjectList();
+    void deleteProject(String projectId);
 
     void updateProject(Project project);
 
+    List<Project> getProjectList();
+
     Project getProjectById(String projectId);
+
+
 }

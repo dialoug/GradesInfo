@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import java.util.List;
+
 import static java.time.LocalTime.now;
 
 @Mapper
@@ -24,4 +26,9 @@ public interface AdminMapper {
 
     @Update("update admin set name=#{Name},phonenumber=#{PhoneNumber},date=now() where workid=#{WorkId}")
     void update(Admin admin);
+
+    void deleteAdmin(String workId);
+
+    @Select("select *from admin")
+    List<Admin> getAllAdmin();
 }

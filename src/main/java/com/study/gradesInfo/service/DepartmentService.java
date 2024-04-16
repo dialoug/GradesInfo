@@ -12,6 +12,14 @@ public interface DepartmentService {
 
     void addClass(Class clas);
 
+    void deleteAcademy(String academyId);
+
+    void deleteClass(String classId);
+
+    void updateAcademy(Academy academy);
+
+    void updateClass(Class clas);
+
     List<Academy> getAcademyList();
 
     List<Class> getClassListByAcademyId(String academyId);
@@ -20,7 +28,4 @@ public interface DepartmentService {
 
     Class getClassById(String classId);
 
-    void updateAcademy(Academy academy);
-
-    void updateClass(Class clas);
 }

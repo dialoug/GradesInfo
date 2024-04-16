@@ -16,50 +16,70 @@ public class DepartmentController {
     @Autowired
     DepartmentService departmentService;
 
+    //管理员权限
     @PostMapping("/addAcademy")
     public Result addAcademy(@RequestBody @Validated Academy academy) {
         departmentService.addAcademy(academy);
         return Result.success(academy);
     }
 
-    @PostMapping("/class")
+    //教师权限
+    @PostMapping("/addClass")
     public Result addClass(@RequestBody @Validated Class clas) {
         departmentService.addClass(clas);
         return Result.success(clas);
     }
 
-    @GetMapping("/academy")
-    public Result<List<Academy>> academyList() {
-        List<Academy> la = departmentService.getAcademyList();
-        return Result.success(la);
+    //管理员权限
+    @PostMapping("/deleteAcademy")
+    public Result deleteAcademy(String academyId) {
+        departmentService.deleteAcademy(academyId);
+        return Result.success();
     }
 
-    @GetMapping("/class")
-    public Result<List<Class>> classList(String academyId) {
-        List<Class> lc = departmentService.getClassListByAcademyId(academyId);
-        return Result.success(lc);
+    //教师权限
+    @PostMapping("/deleteClass")
+    public Result deleteClass(String classId) {
+        departmentService.deleteClass(classId);
+        return Result.success();
     }
 
-    @GetMapping("/academyinfo")
-    public Result<Academy> academyInfo(String academyId) {
-        return Result.success(departmentService.getAcademyById(academyId));
-    }
-
-    @GetMapping("/classinfo")
-    public Result<Class> classInfo(String classId) {
-        return Result.success(departmentService.getClassById(classId));
-    }
-
-    @PutMapping("/academyeidt")
+    //管理员权限
+    @PutMapping("/eidtAcademy")
     public Result<Academy> academyEdit(@RequestBody @Validated(Academy.update.class) Academy academy) {
         departmentService.updateAcademy(academy);
         return Result.success();
     }
 
-    @PutMapping("/classedit")
+    //教师权限
+    @PutMapping("/editClass")
     public Result<Class> classEdit(@RequestBody @Validated(Class.update.class) Class clas) {
         departmentService.updateClass(clas);
         return Result.success();
     }
+
+
+    @GetMapping("/listAcademy")
+    public Result<List<Academy>> academyList() {
+        List<Academy> la = departmentService.getAcademyList();
+        return Result.success(la);
+    }
+
+    @GetMapping("/listClass")
+    public Result<List<Class>> classList(String academyId) {
+        List<Class> lc = departmentService.getClassListByAcademyId(academyId);
+        return Result.success(lc);
+    }
+
+    @GetMapping("/infoAcademy")
+    public Result<Academy> academyInfo(String academyId) {
+        return Result.success(departmentService.getAcademyById(academyId));
+    }
+
+    @GetMapping("/infoClass")
+    public Result<Class> classInfo(String classId) {
+        return Result.success(departmentService.getClassById(classId));
+    }
+
 
 }
