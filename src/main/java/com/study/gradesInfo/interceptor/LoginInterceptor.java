@@ -24,6 +24,7 @@ public class LoginInterceptor implements HandlerInterceptor {
             ValueOperations<String, String> operations = stringRedisTemplate.opsForValue();
             String redisToken = operations.get(token);
             if (redisToken == null) {
+
                 throw new RuntimeException();
             }
 

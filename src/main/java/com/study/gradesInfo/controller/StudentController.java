@@ -18,29 +18,23 @@ public class StudentController {
 
     //教师权限
     @PutMapping("/add")
-    public Result addStudent(@RequestBody Student student, String classId) {
+    public Result addStudent(@RequestBody Student student, @RequestParam String classId) {
         if (studentService.findStudentByStudentId(student.getStudentId()) == null) {
             studentService.addStudent(student);
             studentService.addStudentTeacher(student.getStudentId());
             studentService.addStudentClass(student.getStudentId(), classId);
-            studentService.initializeStudentProject(student.getStudentId());
-            return Result.success();
+            return Result.success("学生添加成功（后台）");
         } else return Result.error("该学生已存在！");
     }
 
     //教师权限
     @PostMapping("/delete")
-    public Result deleteStudent(String studentId) {
+    public Result deleteStudent(@RequestBody String studentId) {
         studentService.deleteStudent(studentId);
+        //System.out.println(studentId);
         return Result.success();
     }
 
-    //教师权限
-    @PutMapping("/update")
-    public Result updateStudent(@RequestBody Student student) {
-        studentService.updateStudent(student);
-        return Result.success();
-    }
 
     //教师权限
     @PutMapping("/teacher")
@@ -50,8 +44,9 @@ public class StudentController {
     }
 
     //教师权限
-    @PutMapping("/class")
-    public Result updateClass(String studentId, String classId) {
+    @PutMapping("/editClass")
+    public Result updateClass(@RequestParam String studentId, @RequestParam String classId) {
+        System.out.println(studentId + "修改学生班级" + classId);
         studentService.updateClass(studentId, classId);
         return Result.success();
     }
@@ -59,11 +54,12 @@ public class StudentController {
     @GetMapping("/list")
     public Result<List<Student>> studentList() {
         List<Student> ls = studentService.getStudentList();
+        System.out.println(ls);
         return Result.success(ls);
     }
 
     @PostMapping("/listByClass")
-    public Result<List<Student>> studentListByClass(Long classId) {
+    public Result<List<Student>> studentListByClass(String classId) {
         List<Student> ls = studentService.getStudentListByClassId(classId);
         return Result.success(ls);
     }

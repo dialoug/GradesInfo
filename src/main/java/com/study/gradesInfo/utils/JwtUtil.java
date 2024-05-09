@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class JwtUtil {
     public static final String KEY = "1124";
-    public static final int time = 1000 * 60 * 30;
+    public static final int time = 1000 * 60 * 30 * 12;
 
     public static String genToken(Map<String, Object> claims) {
         return JWT.create()

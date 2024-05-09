@@ -31,8 +31,13 @@ public class DepartmentServiceImp implements DepartmentService {
 
     @Override
     public void deleteAcademy(String academyId) {
-        departmentMapper.deleteClassByAcademyId(academyId);
+        //departmentMapper.deleteClassByAcademyId(academyId);
+        //删除本体
         departmentMapper.deleteAcademy(academyId);
+        //删除班级关联表
+        departmentMapper.deleteClass_Academy(academyId);
+        //删除教师关联表
+        departmentMapper.deleteTeacher_Academy(academyId);
     }
 
     @Override
@@ -42,13 +47,9 @@ public class DepartmentServiceImp implements DepartmentService {
     }
 
     @Override
-    public void updateClass(Class clas) {
+    public void updateClass(Class clas, String academyId) {
         departmentMapper.updateClass(clas);
-    }
-
-    @Override
-    public void updateClassAcademyId(String classId, String academyId) {
-        departmentMapper.updateClassAcademyId(classId, academyId);
+        departmentMapper.updateClassAcademyId(clas.getClassId(), academyId);
     }
 
     @Override
@@ -69,6 +70,31 @@ public class DepartmentServiceImp implements DepartmentService {
     @Override
     public Class getClassById(String classId) {
         return departmentMapper.findClassById(classId);
+    }
+
+    @Override
+    public List<Class> getClassList() {
+        return departmentMapper.getClassList();
+    }
+
+    @Override
+    public Academy getAcademyByClassId(String classId) {
+        return departmentMapper.getAcademyByClassId(classId);
+    }
+
+    @Override
+    public List<Class> getNoAcademyClass() {
+        return departmentMapper.getNoAcademyClass();
+    }
+
+    @Override
+    public Academy getAcademyByTeacherId(String teacherId) {
+        return departmentMapper.getAcademyByTeacherId(teacherId);
+    }
+
+    @Override
+    public Class getClassByStudentId(String studentId) {
+        return departmentMapper.getClassByStudentId(studentId);
     }
 
     @Override

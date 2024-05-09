@@ -26,6 +26,7 @@ public class TeacherServiceImp implements TeacherService {
     @Override
     public void deleteTeacher(String teacherId) {
         teacherMapper.deleteTeacher(teacherId);
+        teacherMapper.deleteTeacher_Academy(teacherId);
     }
 
     @Override
@@ -54,8 +55,13 @@ public class TeacherServiceImp implements TeacherService {
     }
 
     @Override
-    public List<Teacher> getTeacherByAcademy(Integer academyId) {
+    public List<Teacher> getTeacherByAcademy(String academyId) {
         return teacherMapper.getTeacherByAcademy(academyId);
+    }
+
+    @Override
+    public List<Teacher> getTeacherNoAcademy() {
+        return teacherMapper.getTeacherNoAcademy();
     }
 
 

@@ -22,7 +22,8 @@ public class TeacherController {
 
     //管理员权限
     @PostMapping("/add")
-    public Result addTeacher(@Pattern(regexp = "^[0-9]{5,20}$") String teacherId, String academyId) {
+    public Result addTeacher(@RequestBody String teacherId, @RequestParam String academyId) {
+        System.out.println(teacherId + "添加教师信息");
         if (teacherService.findTeacherByTeacherId(teacherId) == null) {
             teacherService.addTeacher(teacherId);
             teacherService.addTeacherAcademy(teacherId, academyId);
@@ -34,13 +35,14 @@ public class TeacherController {
 
     //管理员权限
     @PostMapping("/delete")
-    public Result deleteTeacher(String teacherId) {
+    public Result deleteTeacher(@RequestBody String teacherId) {
+        System.out.println(teacherId + "delete");
         teacherService.deleteTeacher(teacherId);
         return Result.success();
     }
 
     //管理员权限
-    @PutMapping("/update")
+    @PutMapping("/updateInfo")
     public Result updateTeacher(Teacher teacher) {
         teacherService.updateTeacher(teacher);
         return Result.success();
@@ -48,7 +50,8 @@ public class TeacherController {
 
     //管理员权限
     @PutMapping("/update")
-    public Result updateTeacherAcademyId(String teacherId, String academyId) {
+    public Result updateTeacherAcademyId(@RequestParam String teacherId, @RequestParam String academyId) {
+        System.out.println(teacherId + "edit" + academyId);
         teacherService.updateTeacherAcademyId(teacherId, academyId);
         return Result.success();
     }
@@ -56,12 +59,23 @@ public class TeacherController {
     @GetMapping("/list")
     public Result<List<Teacher>> teacherList() {
         List<Teacher> lt = teacherService.getTeacherList();
+        System.out.println(lt);
         return Result.success(lt);
     }
 
-    @PostMapping("/listByAcademy")
-    public Result<List<Teacher>> teacherListByClass(Integer academyId) {
+    @GetMapping("/listByAcademy")
+    public Result<List<Teacher>> teacherListByAcademyId(@RequestParam String academyId) {
+        System.out.println(academyId);
         List<Teacher> lt = teacherService.getTeacherByAcademy(academyId);
+        System.out.println(lt);
+        return Result.success(lt);
+    }
+
+    @GetMapping("/listNoAcademy")
+    public Result<List<Teacher>> teacherListNoAcademy() {
+
+        List<Teacher> lt = teacherService.getTeacherNoAcademy();
+        System.out.println(lt + "无学院老师");
         return Result.success(lt);
     }
 

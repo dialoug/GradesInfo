@@ -22,7 +22,8 @@ public interface TeacherService {
 
     List<Teacher> getTeacherList();
 
-    List<Teacher> getTeacherByAcademy(Integer academyId);
+    List<Teacher> getTeacherByAcademy(String academyId);
 
 
+    List<Teacher> getTeacherNoAcademy();
 }

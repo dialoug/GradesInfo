@@ -1,6 +1,5 @@
 package com.study.gradesInfo.controller;
 
-import com.study.gradesInfo.entity.user.Teacher;
 import com.study.gradesInfo.entity.user.User;
 import com.study.gradesInfo.entity.utils.Result;
 import com.study.gradesInfo.service.UserService;
@@ -32,14 +31,14 @@ public class UserController {
     private StringRedisTemplate stringRedisTemplate;
 
     @PostMapping("/register")
-    public Result register(@Pattern(regexp = "^\\S{5,20}$") String username, @Pattern(regexp = "^\\S{5,20}$") String password, String teacher) {
+    public Result register(@Pattern(regexp = "^\\S{5,20}$") String username, @Pattern(regexp = "^\\S{5,20}$") String password, String teacherId) {
         User u = userService.findByUsername(username);
-        boolean haveTeacher = userService.findTeacherByUsername(teacher);
+        boolean haveTeacher = userService.findTeacherByTeacherId(teacherId);
         if (u == null) {
             if (haveTeacher == false) {
                 return Result.error("非本校教师，无法注册");
             } else {
-                userService.register(username, password, teacher, 1);
+                userService.register(username, password, teacherId, 1);
                 return Result.success("注册教师成功");
             }
         } else {

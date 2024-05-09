@@ -47,7 +47,7 @@ public class UserServiceImp implements UserService {
 
 
     @Override
-    public boolean findTeacherByUsername(String id) {
+    public boolean findTeacherByTeacherId(String id) {
         Teacher teacher = teacherMapper.findTeacherByTeacherId(id);
         if (teacher != null) return true;
         else return false;

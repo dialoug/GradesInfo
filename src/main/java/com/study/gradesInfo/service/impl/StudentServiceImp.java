@@ -2,7 +2,6 @@ package com.study.gradesInfo.service.impl;
 
 import com.study.gradesInfo.entity.Student;
 import com.study.gradesInfo.mapper.StudentMapper;
-import com.study.gradesInfo.mapper.TeacherMapper;
 import com.study.gradesInfo.service.StudentService;
 import com.study.gradesInfo.utils.ThreadLocalUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,10 +36,6 @@ public class StudentServiceImp implements StudentService {
         studentMapper.deleteStudent(studentId);
     }
 
-    @Override
-    public void updateStudent(Student student) {
-        studentMapper.updateStudent(student);
-    }
 
     @Override
     public void updateTeacher(String studentId, String teacherId) {
@@ -58,13 +53,9 @@ public class StudentServiceImp implements StudentService {
         return studentMapper.getStudentAll();
     }
 
-    @Override
-    public void initializeStudentProject(String studentId) {
-        studentMapper.initializeStudentProject(studentId);
-    }
 
     @Override
-    public List<Student> getStudentListByClassId(Long classId) {
+    public List<Student> getStudentListByClassId(String classId) {
         return studentMapper.getStudentByClassId(classId);
     }
 

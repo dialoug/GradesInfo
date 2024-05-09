@@ -20,9 +20,6 @@ public interface StudentMapper {
     @Delete("delete from student where studentid=#{studentId}")
     void deleteStudent(String studentId);
 
-    @Update("update student set studentname=#{studentName},gender=#{gender},age=#{age},date=now() where studentid=#{studentId}")
-    void updateStudent(Student student);
-
     @Update("update student_teacher set teacherid=#{teacherId} where studentid=#{studentId}")
     void updateTeacher(String studentId, String teacherId);
 
@@ -36,14 +33,12 @@ public interface StudentMapper {
     Student findStudentById(String id);
 
     @Select("select * from student where studentid=" +
-            "(select * from student_class where classid=#{classId})")
-    List<Student> getStudentByClassId(Long classId);
+            "(select studentid from student_class where classid=#{classId})")
+    List<Student> getStudentByClassId(String classId);
 
     @Select("select * from student where studentid=" +
-            "(select * from student_teacher where teacherid=" +
+            "(select studentid from student_teacher where teacherid=" +
             "(select typeid from user_type where username=#{username} and type=1))")
     List<Student> getStudentByTeacherId(String username);
 
-    @Insert("insert into student_project(studentid)values (${studentId})")
-    void initializeStudentProject(String studentId);
 }

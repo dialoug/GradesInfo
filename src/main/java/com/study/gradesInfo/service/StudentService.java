@@ -13,7 +13,6 @@ public interface StudentService {
 
     void deleteStudent(String studentId);
 
-    void updateStudent(Student student);
 
     void updateTeacher(String studentId, String teacherId);
 
@@ -21,8 +20,7 @@ public interface StudentService {
 
     Student findStudentByStudentId(String studentId);
 
-
-    List<Student> getStudentListByClassId(Long classId);
+    List<Student> getStudentListByClassId(String classId);
 
     List<Student> findStudentByTeacherId();
 
@@ -30,5 +28,4 @@ public interface StudentService {
     List<Student> getStudentList();
 
 
-    void initializeStudentProject(String studentId);
 }

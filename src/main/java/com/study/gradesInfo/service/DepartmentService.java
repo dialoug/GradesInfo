@@ -20,9 +20,8 @@ public interface DepartmentService {
 
     void updateAcademy(Academy academy);
 
-    void updateClass(Class clas);
+    void updateClass(Class clas, String academyId);
 
-    void updateClassAcademyId(String classId, String academyId);
 
     List<Academy> getAcademyList();
 
@@ -32,4 +31,14 @@ public interface DepartmentService {
 
     Class getClassById(String classId);
 
+    List<Class> getClassList();
+
+    Academy getAcademyByClassId(String classId);
+
+    List<Class> getNoAcademyClass();
+
+
+    Academy getAcademyByTeacherId(String teacherId);
+
+    Class getClassByStudentId(String studentId);
 }

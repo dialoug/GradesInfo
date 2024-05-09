@@ -12,7 +12,7 @@ public class Class {
     @NotNull
     private String classId;
     @NotEmpty
-    private String className;
+    private String name;
     private int studentNumber;
 
     public interface update extends Default {

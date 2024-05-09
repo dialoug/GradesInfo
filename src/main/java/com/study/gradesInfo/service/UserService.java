@@ -13,7 +13,7 @@ public interface UserService {
 
     User findByUsername(String username);
 
-    boolean findTeacherByUsername(String username);
+    boolean findTeacherByTeacherId(String username);
 
     List<User> getUserList();
 }

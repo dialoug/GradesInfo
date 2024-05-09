@@ -6,11 +6,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class Teacher {
-    private Long TeacherId;
-    private String TeacherName;
-    private String Gender;
-    private String PhoneNumber;
-    private Integer AcademyId;
+    private String teacherId;
+    private String teacherName;
+    private String gender;
+    private String phoneNumber;
+    private String academyId;
 
 
 }

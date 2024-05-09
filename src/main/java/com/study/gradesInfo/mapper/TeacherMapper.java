@@ -16,7 +16,7 @@ public interface TeacherMapper {
     @Delete("delete from teacher where teacherid=#{teacherId}")
     void deleteTeacher(String teacherId);
 
-    @Update("update teacher set teachername=#{TeacherName},Gender=#{Gender},phonenumber=#{PhoneNumber} where teacherid=#{teacherId}")
+    @Update("update teacher set teachername=#{teacherName},Gender=#{gender},phonenumber=#{phoneNumber} where teacherid=#{teacherId}")
     void updateTeacher(Teacher teacher);
 
     @Update("update teacher_academy set academyid=#{academyId} where teacherid=#{teacherId}")
@@ -31,9 +31,13 @@ public interface TeacherMapper {
     @Select("select *from teacher")
     List<Teacher> getAllTeacher();
 
-    @Select("select * from teacher where teacherid=" +
-            "(select * from teacher_academy where academyid =#{academyId})")
-    List<Teacher> getTeacherByAcademy(Integer academyId);
+    @Select("select * from teacher where teacherid in " +
+            "(select teacherid from teacher_academy where academyid =#{academyId})")
+    List<Teacher> getTeacherByAcademy(String academyId);
 
+    @Select("select * from teacher where teacherid in (select teacherid from teacher_academy where academyid is null)")
+    List<Teacher> getTeacherNoAcademy();
 
+    @Delete("delete from teacher_academy where teacherid=#{teacherId}")
+    void deleteTeacher_Academy(String teacherId);
 }
