@@ -95,11 +95,10 @@
         </el-dialog>
 
         <el-form-item label="学号">
-          <el-input autocomplete="off"/>
+          <el-input v-model="searchId" style="width: 240px" placeholder="Please input" clearable/>
         </el-form-item>
-        <el-form-item label="姓名">
-          <el-input autocomplete="off"/>
-        </el-form-item>
+
+
         <el-form-item>
           <el-button type="primary" @click="searchButton">搜索</el-button>
         </el-form-item>
@@ -156,7 +155,14 @@ import {
   Search,
   Star,
 } from '@element-plus/icons-vue'
-import {getStudentListService, addStudentService, updateStudentService, deleteStudentService} from "@/api/student.js";
+import {
+  getStudentListService,
+  addStudentService,
+  getStudentByClassIdService,
+  updateStudentService,
+  deleteStudentService,
+  getStudentByStudentIdService
+} from "@/api/student.js";
 import {
   getAcademyListService,
   getClassListByAcademyIdService,
@@ -244,6 +250,8 @@ const teacherList = ref([
 ])
 
 
+const searchId = ref('')
+
 const setStudentClass = async (studentData) => {
   studentData.value.forEach(async (item, index) => {
     //ElMessage.success(item.classId)
@@ -292,12 +300,24 @@ const editButton = (rowData) => {
   academyId.value = rowData.academy;
 
 }
+//查找班级通过学生信息
+const searchButton = async () => {
+  if (searchId.value === '') {
+    let reselt = await getStudentByClassIdService(classId.value);
+    studentData.value = reselt.data;
+    setStudentClass(studentData);
+  } else {
 
-const searchButton = () => {
+    let reselt = await getStudentByStudentIdService(searchId.value);
+    studentData.value = reselt.data;
+
+    setStudentClass(studentData);
+  }
 
 }
 const resetButton = () => {
-  console.log('submit!')
+
+  getStudentList();
 }
 const uploadButton = () => {
   console.log('submit!')

@@ -6,6 +6,7 @@ import com.study.gradesInfo.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -58,9 +59,18 @@ public class StudentController {
         return Result.success(ls);
     }
 
-    @PostMapping("/listByClass")
-    public Result<List<Student>> studentListByClass(String classId) {
+    @GetMapping("/listByClass")
+    public Result<List<Student>> studentListByClass(@RequestParam String classId) {
         List<Student> ls = studentService.getStudentListByClassId(classId);
+        return Result.success(ls);
+    }
+
+    @GetMapping("/getStudentById")
+    public Result<List<Student>> studentByStudentId(@RequestParam String studentId) {
+        Student s = studentService.findStudentByStudentId(studentId);
+        List<Student> ls = new ArrayList<>();
+        ls.add(s);
+        System.out.println(ls + "查找" + studentId);
         return Result.success(ls);
     }
 

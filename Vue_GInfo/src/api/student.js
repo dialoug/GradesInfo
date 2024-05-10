@@ -19,3 +19,12 @@ export const updateStudentService = (studentId, classId) => {
 export const deleteStudentService = (studentId) => {
     return request.post('/student/delete', studentId);
 }
+export const getStudentByClassIdService = (classId) => {
+    //pinia响应数据不用.value
+    return request.get('/student/listByClass?classId=' + classId);
+}
+
+export const getStudentByStudentIdService = (studentId) => {
+    //pinia响应数据不用.value
+    return request.get('/student/getStudentById?studentId=' + studentId);
+}

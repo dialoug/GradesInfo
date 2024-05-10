@@ -16,4 +16,7 @@ public interface ProjectService {
     Project getProjectById(String projectId);
 
 
+    String getMatchByProject(String matchId, String projectId);
+
+    List<Project> getProjectByMatchId(String matchId);
 }

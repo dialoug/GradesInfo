@@ -1,16 +1,19 @@
 package com.study.gradesInfo.entity;
 
-import com.study.gradesInfo.entity.department.Academy;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.groups.Default;
 import lombok.Data;
 
 @Data
-public class ProjectGrades extends Project {
-    @NotNull(groups = {ProjectGrades.update.class, ProjectGrades.delete.class})
+public class ProjectScore {
+    @NotNull(groups = {ProjectScore.update.class, ProjectScore.delete.class})
+    Integer id;
     String matchId;
+    String projectId;
+    String studentId;
     Integer grades;
-    String date;
+    String description;
+    String matchTime;
 
     public interface update extends Default {
     }

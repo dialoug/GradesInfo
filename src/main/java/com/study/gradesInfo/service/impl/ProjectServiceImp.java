@@ -40,4 +40,14 @@ public class ProjectServiceImp implements ProjectService {
         return projectMapper.getProjectById(projectId);
     }
 
+    @Override
+    public String getMatchByProject(String matchId, String projectId) {
+        return projectMapper.getMatchByProject(matchId, projectId);
+    }
+
+    @Override
+    public List<Project> getProjectByMatchId(String matchId) {
+        return projectMapper.getProjectByMatchId(matchId);
+    }
+
 }

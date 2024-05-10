@@ -32,7 +32,7 @@ public interface StudentMapper {
     @Select("select * from student where studentid=#{id}")
     Student findStudentById(String id);
 
-    @Select("select * from student where studentid=" +
+    @Select("select * from student where studentid in " +
             "(select studentid from student_class where classid=#{classId})")
     List<Student> getStudentByClassId(String classId);
 

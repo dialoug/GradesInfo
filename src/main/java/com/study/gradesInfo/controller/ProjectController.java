@@ -30,7 +30,8 @@ public class ProjectController {
 
     //管理员权限
     @PostMapping("/delete")
-    public Result deleteProject(String projectId) {
+    public Result deleteProject(@RequestBody String projectId) {
+        System.out.println(projectId + "删除项目");
         projectService.deleteProject(projectId);
         return Result.success();
     }
@@ -38,6 +39,7 @@ public class ProjectController {
     //管理员权限
     @PutMapping("/edit")
     public Result<Project> projectEdit(@RequestBody @Validated(Project.update.class) Project project) {
+        System.out.println(project + "修改项目");
         projectService.updateProject(project);
         return Result.success();
     }
@@ -48,8 +50,22 @@ public class ProjectController {
         return Result.success((projects));
     }
 
-    @GetMapping("/info")
-    public Result<Project> projectInfo(String projectId) {
+    @GetMapping("/haveMatch")
+    public Result<String> getMatchForProject(@RequestParam String matchId, @RequestParam String projectId) {
+        String MatchId = projectService.getMatchByProject(matchId, projectId);
+        return Result.success((MatchId));
+    }
+
+
+    @GetMapping("/getListByMatchId")
+    public Result<List<Project>> getListByMatchId(@RequestParam String matchId) {
+        List<Project> projects = projectService.getProjectByMatchId(matchId);
+        System.out.println("获取项目通过比赛Id" + projects);
+        return Result.success((projects));
+    }
+
+    @GetMapping("/getProject")
+    public Result<Project> projectInfo(@RequestParam String projectId) {
         return Result.success(projectService.getProjectById(projectId));
     }
 
