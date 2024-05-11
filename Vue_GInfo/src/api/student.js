@@ -28,3 +28,7 @@ export const getStudentByStudentIdService = (studentId) => {
     //pinia响应数据不用.value
     return request.get('/student/getStudentById?studentId=' + studentId);
 }
+
+export const updateStudentExcelService = (url) => {
+    return request.patch('/student/updateStudentExcel', {url: url});
+}

@@ -14,7 +14,24 @@
       <div class="el-head">
         <span>学生列表</span>
 
-        <el-button type="primary" @click="uploadButton">批量上传学生信息</el-button>
+        <el-upload ref="upload" class="upload-demo" action="/api/student/upload" :limit="1"
+                   :on-exceed="handleExceed" :auto-upload="false" :headers="{ 'Authorization': tokenStore.token }"
+                   :on-success="updateSuccess">
+          <template #trigger>
+            <el-button type="primary">选择学生信息文件</el-button>
+          </template>
+
+          <el-button class="ml-3" type="success" @click="submitUpload">
+            上传
+          </el-button>
+          <template #tip>
+            <div class="el-upload__tip text-red">
+              limit 1 file, new file will cover the old file
+            </div>
+          </template>
+        </el-upload>
+
+
       </div>
       <div style="height: 20px;"/>
       <hr>
@@ -161,7 +178,8 @@ import {
   getStudentByClassIdService,
   updateStudentService,
   deleteStudentService,
-  getStudentByStudentIdService
+  getStudentByStudentIdService,
+  updateStudentExcelService,
 } from "@/api/student.js";
 import {
   getAcademyListService,
@@ -364,19 +382,19 @@ getStudentList();
 
 const addStudent = async () => {
   let result = await addStudentService(addStudentData.value, addStudentData.value.classId);
-  ElMessage.success(result.message ? result.message : '添加成功')
+  ElMessage.success(result.data ? result.data : '添加成功')
   getStudentList();
   addStudentForm.value = false;
 }
 const deleteStudent = async (rowStudentId) => {
   let result = await deleteStudentService(rowStudentId);
-  ElMessage.success(result.message ? result.message : '删除成功')
+  ElMessage.success(result.data ? result.data : '删除成功')
   getStudentList();
   addStudentForm.value = false;
 }
 const editStudent = async () => {
   let result = await updateStudentService(addStudentData.value.studentId, addStudentData.value.classId);
-  ElMessage.success(result.message ? result.message : '修改成功')
+  ElMessage.success(result.data ? result.data : '修改成功')
   getStudentList();
   addStudentForm.value = false;
 }
@@ -412,6 +430,31 @@ const handleCurrentChange = (val: number) => {
   console.log(`current page: ${val}`)
 }
 
+import {genFileId} from 'element-plus'
+import type {UploadInstance, UploadProps, UploadRawFile} from 'element-plus'
+import {useTokenStore} from '@/stores/token';
 
+const tokenStore = useTokenStore();
+const upload = ref<UploadInstance>()
+
+const handleExceed: UploadProps['onExceed'] = (files) => {
+  upload.value!.clearFiles()
+  const file = files[0] as UploadRawFile
+  ElMessage.success()
+  file.uid = genFileId()
+  upload.value!.handleStart(file)
+}
+
+const submitUpload = () => {
+  //updateTranscriptsExcelService()
+  upload.value!.submit()
+}
+
+const updateSuccess = async (result) => {
+  ElMessage.success(result.data)
+  let r = await updateStudentExcelService(result.data)
+  ElMessage.success(r.data)
+  getStudentList();
+}
 
 </script>

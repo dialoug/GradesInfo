@@ -14,7 +14,7 @@ public class Config implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
 
-        registry.addInterceptor(loginInterceptor).excludePathPatterns("/student","/user/login","/user/register");
+        registry.addInterceptor(loginInterceptor).excludePathPatterns("/score", "/student", "/user/login", "/user/register");
 
     }
 

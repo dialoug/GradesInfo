@@ -25,4 +25,6 @@ public interface ProjectScoreService {
     List<ProjectScore> getScoreListByStudentIdAndMatchId(String matchId, String studentId);
 
     List<ProjectScore> getScoreListByStudentIdAndMatchIdAndProjectId(String matchId, String studentId, String projectId);
+
+    void uploadTranscripts(String url);
 }

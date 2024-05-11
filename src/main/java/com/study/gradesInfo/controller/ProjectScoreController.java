@@ -1,15 +1,23 @@
 package com.study.gradesInfo.controller;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.study.gradesInfo.entity.ProjectScore;
+import com.study.gradesInfo.entity.Student;
 import com.study.gradesInfo.entity.utils.Result;
 import com.study.gradesInfo.service.ProjectScoreService;
 import com.study.gradesInfo.service.StudentService;
+import com.study.gradesInfo.utils.FileUtil;
+import org.apache.poi.ss.usermodel.*;
+import org.hibernate.validator.constraints.URL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.*;
 
 @RestController
 @RequestMapping("/score")
@@ -75,5 +83,57 @@ public class ProjectScoreController {
         return Result.success(lg);
     }
 
+    @PostMapping("/upload")
+    public Result<String> upload(MultipartFile file) throws IOException {
+        String fileName = UUID.randomUUID() + file.getOriginalFilename();
+        System.out.println(fileName);
+        file.transferTo(new File("E:\\DSSOUG\\maven\\GradesInfo\\ExcelData\\transcripts\\" + fileName));
+        return Result.success("E:\\DSSOUG\\maven\\GradesInfo\\ExcelData\\transcripts\\" + fileName);
+    }
 
+    FileUtil fileUtil = new FileUtil();
+
+    @PatchMapping("/updateTranscriptsExcel")
+    public Result<List<Result>> updateTranscripts(@RequestBody String url) {
+        System.out.println(url);
+        List<Result> results = new ArrayList<>();
+        Sheet sheet = fileUtil.setFirstRow(url);
+        for (int i = 1; i <= sheet.getLastRowNum(); i++) {
+            Row row = sheet.getRow(i);
+            ProjectScore projectScore = new ProjectScore();
+            for (Cell cell : row) {
+                switch (fileUtil.getColumnHeader(cell)) {
+                    case "ID":
+                        // 处理 ID 列
+                        break;
+                    case "赛事Id":
+                        projectScore.setMatchId(fileUtil.getCellValue(cell));
+                        break;
+                    case "项目Id":
+                        projectScore.setProjectId(fileUtil.getCellValue(cell));
+                        break;
+                    case "学号":
+                        projectScore.setStudentId(fileUtil.getCellValue(cell));
+                        break;
+                    case "分数":
+                        projectScore.setGrades(Integer.valueOf(fileUtil.getCellValue(cell)));
+                        break;
+                    case "班级Id":
+                        projectScore.setDescription(fileUtil.getCellValue(cell));
+                        break;
+                    case "比赛时间":
+                        projectScore.setMatchTime(fileUtil.getCellValue(cell));
+                        break;
+                    default:
+                        break;
+                }
+            }
+            System.out.println(projectScore);
+            Result result = addGrade(projectScore);
+            results.add(result);
+            System.out.println(result.getMessage());
+        }
+        fileUtil.closeFile();
+        return Result.success(results);
+    }
 }

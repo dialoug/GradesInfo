@@ -7,7 +7,8 @@ import java.util.List;
 
 @Mapper
 public interface StudentMapper {
-    @Insert("insert into student(studentid, studentname, gender, age, date) VALUES (#{studentId},#{studentName},#{gender},#{age},now())")
+    @Insert("insert into student(studentid, studentname, gender, age, date) VALUES " +
+            "(#{studentId},#{studentName},#{gender},#{age},now())")
     void addStudent(Student student);
 
     @Insert("insert into student_teacher(studentid, teacherid) VALUES (#{studentId},(" +

@@ -1,13 +1,21 @@
 package com.study.gradesInfo.controller;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.study.gradesInfo.entity.ProjectScore;
 import com.study.gradesInfo.entity.utils.Result;
 import com.study.gradesInfo.entity.Student;
 import com.study.gradesInfo.service.StudentService;
+import com.study.gradesInfo.utils.FileUtil;
+import org.apache.poi.ss.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.*;
 
 
 @RestController
@@ -80,4 +88,53 @@ public class StudentController {
         return Result.success(ls);
     }
 
+    @PostMapping("/upload")
+    public Result<String> upload(MultipartFile file) throws IOException {
+        String fileName = UUID.randomUUID() + file.getOriginalFilename();
+        System.out.println(fileName);
+        file.transferTo(new File("E:\\DSSOUG\\maven\\GradesInfo\\ExcelData\\student\\" + fileName));
+        return Result.success("E:\\DSSOUG\\maven\\GradesInfo\\ExcelData\\student\\" + fileName);
+    }
+
+    FileUtil fileUtil = new FileUtil();
+
+    @PatchMapping("/updateStudentExcel")
+    public Result<List<Result>> updateTranscripts(@RequestBody String url) {
+        System.out.println(url);
+        List<Result> results = new ArrayList<>();
+        Sheet sheet = fileUtil.setFirstRow(url);
+        for (int i = 1; i <= sheet.getLastRowNum(); i++) {
+            Row row = sheet.getRow(i);
+            Student student = new Student();
+            String classId = "";
+            for (Cell cell : row) {
+                switch (fileUtil.getColumnHeader(cell)) {
+                    case "ID":
+                        // 处理 ID 列
+                        break;
+                    case "学号":
+                        student.setStudentId(fileUtil.getCellValue(cell));
+                        break;
+                    case "学生姓名":
+                        student.setStudentName(fileUtil.getCellValue(cell));
+                        break;
+                    case "性别":
+                        student.setGender(fileUtil.getCellValue(cell));
+                        break;
+                    case "年龄":
+                        student.setAge(Integer.valueOf(fileUtil.getCellValue(cell)));
+                        break;
+                    case "班级Id":
+                        classId = fileUtil.getCellValue(cell);
+                        break;
+                }
+            }
+            System.out.println(student);
+            Result result = addStudent(student, classId);
+            results.add(result);
+            System.out.println(result.getMessage());
+        }
+        fileUtil.closeFile();
+        return Result.success(results);
+    }
 }

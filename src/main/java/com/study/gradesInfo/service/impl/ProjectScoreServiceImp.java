@@ -1,12 +1,19 @@
 package com.study.gradesInfo.service.impl;
 
 import com.study.gradesInfo.entity.ProjectScore;
+import com.study.gradesInfo.entity.utils.Result;
 import com.study.gradesInfo.mapper.ProjectScoreMapper;
 import com.study.gradesInfo.service.ProjectScoreService;
+import org.apache.poi.ss.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ProjectScoreServiceImp implements ProjectScoreService {
@@ -51,6 +58,11 @@ public class ProjectScoreServiceImp implements ProjectScoreService {
     @Override
     public List<ProjectScore> getScoreListByStudentIdAndMatchIdAndProjectId(String matchId, String studentId, String projectId) {
         return projectScoreMapper.getScoreListByStudentIdAndMatchIdAndProjectId(matchId, studentId, projectId);
+    }
+
+    @Override
+    public void uploadTranscripts(String url) {
+
     }
 
     @Override
