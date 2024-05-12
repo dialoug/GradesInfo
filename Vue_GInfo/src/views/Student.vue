@@ -130,7 +130,7 @@
         <el-table-column prop="gender" label="性别"/>
         <el-table-column prop="age" label="年龄"/>
 
-        <el-table-column prop="teacher" label="教师"/>
+        <el-table-column prop="teacherName" label="教师"/>
         <el-table-column prop="academy" label="学院"/>
         <el-table-column prop="class" label="班级"/>
 
@@ -187,7 +187,7 @@ import {
   getClassByStudentIdService,
   getAcademyByclassIdService
 } from "@/api/department.js";
-import {getTeacherListService, getTeacherListByAcademyIdService} from "@/api/teacher.js";
+import {getTeacherListService, getTeacherListByAcademyIdService, getTeacherByStudentIdService} from "@/api/teacher.js";
 
 
 import {ElMessage, ElMessageBox} from 'element-plus';
@@ -267,6 +267,20 @@ const teacherList = ref([
   }
 ])
 
+const setStudentTeacher = async (studentData) => {
+  studentData.value.forEach(async (item, index) => {
+    //ElMessage.success(item.classId)
+    let reseltT = await getTeacherByStudentIdService(item.studentId);
+    if (reseltT.data == null) {
+
+      item.teacherName = "Admin";
+    } else {
+      item.teacherId = reseltT.data.teacherId;
+      item.teacherName = reseltT.data.teacherName;
+    }
+  });
+}
+
 
 const searchId = ref('')
 
@@ -281,6 +295,7 @@ const setStudentClass = async (studentData) => {
     item.academy = reseltA.data.name;
     item.academyId = reseltA.data.academyId;
   });
+  setStudentTeacher(studentData);
 
 }
 
@@ -376,7 +391,6 @@ const getStudentList = async () => {
   let result = await getStudentListService();
   studentData.value = result.data;
   setStudentClass(studentData)
-
 }
 getStudentList();
 
@@ -433,6 +447,7 @@ const handleCurrentChange = (val: number) => {
 import {genFileId} from 'element-plus'
 import type {UploadInstance, UploadProps, UploadRawFile} from 'element-plus'
 import {useTokenStore} from '@/stores/token';
+import UserInfo from './UserInfo.vue';
 
 const tokenStore = useTokenStore();
 const upload = ref<UploadInstance>()

@@ -4,6 +4,7 @@ import com.study.gradesInfo.entity.utils.Result;
 import com.study.gradesInfo.entity.user.Admin;
 import com.study.gradesInfo.service.AdminService;
 import com.study.gradesInfo.utils.JwtUtil;
+import com.study.gradesInfo.utils.ThreadLocalUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,9 +41,9 @@ public class AdminController {
         return Result.success((admins));
     }
 
-    @GetMapping("/info")
-    public Result<Admin> adminInfo(@RequestHeader(name = "Authorization") String token) {
-        Map<String, Object> user = JwtUtil.parseToken(token);
+    @GetMapping("/getAdminInfoByUserName")
+    public Result<Admin> adminInfo() {
+        Map<String, Object> user = ThreadLocalUtil.get();
         String username = (String) user.get("username");
         Admin admin = adminService.findAdminByUsername(username);
         return Result.success(admin);

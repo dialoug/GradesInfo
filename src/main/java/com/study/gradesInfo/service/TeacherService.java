@@ -26,4 +26,6 @@ public interface TeacherService {
 
 
     List<Teacher> getTeacherNoAcademy();
+
+    Teacher getTeacherByStudentId(String studentId);
 }

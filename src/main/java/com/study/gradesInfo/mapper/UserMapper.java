@@ -9,7 +9,6 @@ import java.util.List;
 @Mapper
 public interface UserMapper {
 
-
     @Insert("insert into user(username, password, usertype, date) value (#{username},#{password},#{type},now())")
     void addUser(String username, String password, Integer type);
 
@@ -27,4 +26,7 @@ public interface UserMapper {
 
     @Select("select * from user where username=#{username}")
     User findByUsername(String username);
+
+    @Select("select typeid from user_type where username=#{username}")
+    String getTypeIdByUserName(String username);
 }

@@ -78,6 +78,7 @@ public class UserController {
         Map<String, Object> user = ThreadLocalUtil.get();
         String username = (String) user.get("username");
         User userinfo = userService.findByUsername(username);
+        System.out.println(userinfo);
         return Result.success(userinfo);
     }
 

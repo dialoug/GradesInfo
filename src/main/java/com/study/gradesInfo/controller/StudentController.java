@@ -1,8 +1,5 @@
 package com.study.gradesInfo.controller;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.study.gradesInfo.entity.ProjectScore;
 import com.study.gradesInfo.entity.utils.Result;
 import com.study.gradesInfo.entity.Student;
 import com.study.gradesInfo.service.StudentService;
@@ -13,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.*;
 

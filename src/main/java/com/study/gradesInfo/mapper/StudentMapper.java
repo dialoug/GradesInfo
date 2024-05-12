@@ -11,9 +11,8 @@ public interface StudentMapper {
             "(#{studentId},#{studentName},#{gender},#{age},now())")
     void addStudent(Student student);
 
-    @Insert("insert into student_teacher(studentid, teacherid) VALUES (#{studentId},(" +
-            "select typeid from user_type where username=#{username} and type=1))")
-    void addStudentTeacher(String username, String studentId);
+    @Insert("insert into student_teacher(studentid, teacherid) VALUES (#{studentId},(#{addId}))")
+    void addStudentTeacher(String addId, String studentId);
 
     @Insert("insert into student_class(studentid, classid) VALUES (#{studentId},#{classId})")
     void addStudentClass(String studentId, String classId);
@@ -42,4 +41,6 @@ public interface StudentMapper {
             "(select typeid from user_type where username=#{username} and type=1))")
     List<Student> getStudentByTeacherId(String username);
 
+    @Delete("delete from student_teacher where studentid=#{studentId}")
+    void deleteStudentTeacher(String studentId);
 }

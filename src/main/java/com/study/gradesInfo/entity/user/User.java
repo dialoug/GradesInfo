@@ -6,11 +6,11 @@ import lombok.Data;
 
 @Data
 public class User {
-    private Integer Id;
+    private Integer id;
     @NotNull
-    private String UserName;
+    private String userName;
     @JsonIgnore
-    private String Password;
-    private Integer UserType;
+    private String password;
+    private Integer userType;
 
 }

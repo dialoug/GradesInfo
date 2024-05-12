@@ -1,7 +1,9 @@
 package com.study.gradesInfo.service.impl;
 
 import com.study.gradesInfo.entity.Student;
+import com.study.gradesInfo.entity.user.User;
 import com.study.gradesInfo.mapper.StudentMapper;
+import com.study.gradesInfo.mapper.UserMapper;
 import com.study.gradesInfo.service.StudentService;
 import com.study.gradesInfo.utils.ThreadLocalUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,8 @@ import java.util.Map;
 public class StudentServiceImp implements StudentService {
     @Autowired
     StudentMapper studentMapper;
+    @Autowired
+    UserMapper userMapper;
 
     @Override
     public void addStudent(Student student) {
@@ -23,7 +27,8 @@ public class StudentServiceImp implements StudentService {
     @Override
     public void addStudentTeacher(String studentId) {
         Map<String, Object> map = ThreadLocalUtil.get();
-        studentMapper.addStudentTeacher((String) map.get("username"), studentId);
+        String typeId = userMapper.getTypeIdByUserName((String) map.get("username"));
+        studentMapper.addStudentTeacher(typeId, studentId);
     }
 
     @Override
@@ -34,6 +39,7 @@ public class StudentServiceImp implements StudentService {
     @Override
     public void deleteStudent(String studentId) {
         studentMapper.deleteStudent(studentId);
+        studentMapper.deleteStudentTeacher(studentId);
     }
 
 

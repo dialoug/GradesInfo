@@ -64,5 +64,10 @@ public class TeacherServiceImp implements TeacherService {
         return teacherMapper.getTeacherNoAcademy();
     }
 
+    @Override
+    public Teacher getTeacherByStudentId(String studentId) {
+        return teacherMapper.getTeacherByStudentId(studentId);
+    }
+
 
 }

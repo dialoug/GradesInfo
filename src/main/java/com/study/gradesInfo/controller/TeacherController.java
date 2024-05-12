@@ -79,12 +79,22 @@ public class TeacherController {
         return Result.success(lt);
     }
 
-    @GetMapping("/info")
+    @GetMapping("/getTeacherInfoByUserName")
     public Result<Teacher> teacherInfo() {
         Map<String, Object> user = ThreadLocalUtil.get();
         String username = (String) user.get("username");
+        System.out.println(username);
         Teacher teacher = teacherService.findTeacherByUsername(username);
+        System.out.println(teacher);
         return Result.success(teacher);
+    }
+
+    @GetMapping("/getByStudentId")
+    public Result<Teacher> teacherListByStudentId(@RequestParam String studentId) {
+        System.out.println("当前学生Id" + studentId);
+        Teacher t = teacherService.getTeacherByStudentId(studentId);
+        System.out.println("当前学生教师" + t);
+        return Result.success(t);
     }
 
 }
