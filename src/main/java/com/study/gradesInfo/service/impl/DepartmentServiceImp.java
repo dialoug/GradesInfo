@@ -27,6 +27,7 @@ public class DepartmentServiceImp implements DepartmentService {
     @Override
     public void addClassAcademy(String classId, String academyId) {
         departmentMapper.addClassAcademy(classId, academyId);
+        departmentMapper.updateClassNumber(academyId);
     }
 
     @Override
@@ -42,14 +43,17 @@ public class DepartmentServiceImp implements DepartmentService {
 
     @Override
     public void deleteClass(String classId) {
-        departmentMapper.deleteStudentByClassId(classId);
         departmentMapper.deleteClass(classId);
+        System.out.println(classId + "删除班级");
+        departmentMapper.deleteClassAcademyByClassId(classId);
+        departmentMapper.decClassNumber(departmentMapper.getAcademyByClassId(classId).getAcademyId());
     }
 
     @Override
     public void updateClass(Class clas, String academyId) {
         departmentMapper.updateClass(clas);
         departmentMapper.updateClassAcademyId(clas.getClassId(), academyId);
+        departmentMapper.updateClassNumber(academyId);
     }
 
     @Override

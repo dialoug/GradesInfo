@@ -1,6 +1,9 @@
 package com.study.gradesInfo.service.impl;
 
+import com.study.gradesInfo.entity.GradeInfo;
 import com.study.gradesInfo.entity.Project;
+import com.study.gradesInfo.entity.ProjectInfo;
+import com.study.gradesInfo.entity.Unit;
 import com.study.gradesInfo.mapper.ProjectMapper;
 import com.study.gradesInfo.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +51,61 @@ public class ProjectServiceImp implements ProjectService {
     @Override
     public List<Project> getProjectByMatchId(String matchId) {
         return projectMapper.getProjectByMatchId(matchId);
+    }
+
+    @Override
+    public List<Unit> getUnitList() {
+        return projectMapper.getUnitList();
+    }
+
+    @Override
+    public Unit getUnit(Unit unit) {
+        return projectMapper.getUnit(unit);
+    }
+
+    @Override
+    public void addUnit(Unit unit) {
+        projectMapper.addUnit(unit);
+    }
+
+    @Override
+    public void deleteUnit(String unitname) {
+        projectMapper.deleteUnit(unitname);
+    }
+
+    @Override
+    public GradeInfo getGradeInfo(GradeInfo gradeInfo) {
+        return projectMapper.getGradeInfo(gradeInfo);
+    }
+
+    @Override
+    public void addGradeInfo(GradeInfo gradeInfo) {
+        projectMapper.addGradeInfo(gradeInfo);
+    }
+
+    @Override
+    public void deleteGradeInfo(GradeInfo gradeInfo) {
+        projectMapper.deleteGradeInfo(gradeInfo);
+    }
+
+    @Override
+    public List<GradeInfo> getGradeInfoList(String matchId, String projectId) {
+        return projectMapper.getGradeInfoList(matchId, projectId);
+    }
+
+    @Override
+    public void updateGradeInfo(GradeInfo gradeInfo) {
+        projectMapper.updateGradeInfo(gradeInfo);
+    }
+
+    @Override
+    public void updateProjectInfo(ProjectInfo projectInfo) {
+        projectMapper.updateProjectInfo(projectInfo);
+    }
+
+    @Override
+    public ProjectInfo getProjectInfo(String matchId, String projectId) {
+        return projectMapper.getProjectInfo(matchId, projectId);
     }
 
 }

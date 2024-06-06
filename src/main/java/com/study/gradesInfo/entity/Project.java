@@ -6,6 +6,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.groups.Default;
 import lombok.Data;
 
+import java.time.LocalDate;
+
 @Data
 public class Project {
     @NotNull(groups = {Project.update.class, Project.delete.class})
@@ -15,6 +17,8 @@ public class Project {
     @NotEmpty
     private String name;
     private String description;
+    private Boolean isteam;
+    private LocalDate date;
 
     public interface update extends Default {
     }

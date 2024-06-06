@@ -8,14 +8,20 @@ import java.util.List;
 
 @Mapper
 public interface DepartmentMapper {
-    @Insert("insert into academy(academyid, name, date) VALUES(#{academyId},#{name},now())  ")
+    @Insert("insert into academy(academyid, name,classnumber ,date) VALUES(#{academyId},#{name},0,now())  ")
     void addAcademy(Academy academy);
 
-    @Insert("insert into class(classid, name, date) VALUES (#{classId},#{name},now())")
+    @Insert("insert into class(classid, name, studentnumber,date) VALUES (#{classId},#{name},0,now())")
     void addClass(Class clas);
 
     @Insert("insert into class_academy(classid, academyid)VALUES (#{classId},#{academyId})")
     void addClassAcademy(String classId, String academyId);
+
+    @Update("UPDATE academy SET classnumber=(SELECT COUNT(*) AS classnumber FROM class_academy where academyId=#{academyId}) WHERE academyid=#{academyId}")
+    void updateClassNumber(String academyId);
+
+    @Update("UPDATE academy SET classnumber=classnumber-1 WHERE academyid=#{academyId};")
+    void decClassNumber(String academyId);
 
 
     @Delete("delete from academy where academyid=#{academyId}")
@@ -24,9 +30,6 @@ public interface DepartmentMapper {
     @Delete("delete from class where classid=#{classId}")
     void deleteClass(String classId);
 
-    @Delete("delete from student where studentid=" +
-            "(select studentid from student_class where classid=#{classId})")
-    void deleteStudentByClassId(String classId);
 
     @Update("update class_academy set academyid=null where academyid=#{academyId}")
     void deleteClass_Academy(String academyId);
@@ -56,7 +59,8 @@ public interface DepartmentMapper {
     @Select("select * from class")
     List<Class> getClassList();
 
-    @Select("select * from academy where academyid=(select academyid from class_academy where classid=#{classId})")
+    @Select("select * from academy where academyid=" +
+            "(select academyid from class_academy where classid=#{classId})")
     Academy getAcademyByClassId(String classId);
 
     @Select("select * from class where classid in (select classid from class_academy where academyid is null)")
@@ -70,4 +74,7 @@ public interface DepartmentMapper {
 
     @Select("select * from class where classid=(select classid from student_class where studentid=#{studentId})")
     Class getClassByStudentId(String studentId);
+
+    @Delete("delete from class_academy where classid=#{classId}")
+    void deleteClassAcademyByClassId(String classId);
 }

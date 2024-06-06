@@ -19,13 +19,21 @@ public class AdminController {
 
     @PutMapping("/add")
     public Result addAdmin(@RequestBody Admin admin) {
-        adminService.addAdmin(admin);
-        return Result.success();
+        System.out.println(admin);
+        if (adminService.findAdminByWorkId(admin.getWorkId()) == null) {
+            adminService.addAdmin(admin);
+            return Result.success("管理员添加成功（后台）");
+        } else return Result.error("该管理员已存在！");
     }
 
     @PostMapping("/delete")
-    public Result deleteAdmin(String workId) {
-        adminService.deleteAdmin(workId);
+    public Result deleteAdmin(@RequestParam String workId, @RequestParam String password) {
+        System.out.println(workId + "," + password);
+        if (adminService.findUserByWorkId(workId).getPassword().equals(password)) {
+            adminService.deleteAdmin(workId);
+        } else {
+            return Result.error("密码错误");
+        }
         return Result.success();
     }
 
@@ -46,6 +54,14 @@ public class AdminController {
         Map<String, Object> user = ThreadLocalUtil.get();
         String username = (String) user.get("username");
         Admin admin = adminService.findAdminByUsername(username);
+        return Result.success(admin);
+    }
+
+    @GetMapping("/getAdminInfoByWorkId")
+    public Result<Admin> adminInfoId(@RequestParam String workId) {
+        System.out.println(workId);
+        Admin admin = adminService.findAdminByWorkId(workId);
+        System.out.println(admin);
         return Result.success(admin);
     }
 }

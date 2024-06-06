@@ -15,8 +15,8 @@ public interface UserMapper {
     @Insert("insert into user_type(username,typeid,type,date) values (#{username},#{typeId},#{type},now())")
     void addUserType(String username, String typeId, int type);
 
-    @Delete("")
-    void deleteUser();
+    @Delete("delete from user where username=(select username from user_type where typeid=#{workId})")
+    void deleteUser(String workId);
 
     @Update("update user set password=#{newPassword},date=now() where username=#{username}")
     void updatePwd(String newPassword, String username);
@@ -29,4 +29,7 @@ public interface UserMapper {
 
     @Select("select typeid from user_type where username=#{username}")
     String getTypeIdByUserName(String username);
+
+    @Delete("delete from user_type where typeid=#{workId}")
+    void deleteUserType(String workId);
 }

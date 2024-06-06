@@ -18,11 +18,13 @@ instance.interceptors.request.use(
         const tokenStore = useTokenStore()
         if (tokenStore.token) {
             config.headers['Authorization'] = tokenStore.token;
+        } else {
+
         }
         return config;
     },
     err => {
-        ElMessage.success('服务异常')
+        ElMessage.success('请求拦截器服务异常')
         return Promise.reject(err)
     }
 )
@@ -34,20 +36,14 @@ instance.interceptors.response.use(
             return result.data;
 
         } else {
-            ElMessage.success(result.data.message ? result.data.message : '服务异常')
+            ElMessage.success(result.data.message ? result.data.message : '响应拦截器服务异常')
             return Promise.reject(result.data)
         }
 
     },
     err => {
-        if (err.response.status === 407) {
-            ElMessage.success('未登录')
-            router.push('/login')
-
-        } else {
-            ElMessage.success('服务异常')
-            return Promise.reject(err)
-        }
+        ElMessage.success('未登录')
+        router.push('/login')
     }
 
 )

@@ -150,10 +150,6 @@
 
   <el-footer>
 
-    <el-pagination v-model:current-page="currentPage" v-model:page-size="pageSize" :page-sizes="[10, 20, 30, 40]"
-                   :small="small" :disabled="disabled" :background="background"
-                   layout=" prev, pager, next,jumper,total, sizes"
-                   :total="total" @size-change="handleSizeChange" @current-change="handleCurrentChange"/>
 
   </el-footer>
 
@@ -195,13 +191,6 @@ import {ElMessage, ElMessageBox} from 'element-plus';
 const addStudentForm = ref(false)
 
 const title = ref('')
-
-const currentPage = ref(1)
-const pageSize = ref(10)
-const small = ref(false)
-const background = ref(false)
-const disabled = ref(false)
-const total = ref(20)
 const studentData = ref([
       {
         studentId: '5120201124',
@@ -349,13 +338,12 @@ const searchButton = async () => {
 
 }
 const resetButton = () => {
-
+  academyId.value = ''
+  classId.value = ''
+  teacherId.value = ''
+  searchId.value = ''
   getStudentList();
 }
-const uploadButton = () => {
-  console.log('submit!')
-}
-
 
 const editSubmitButton = () => {
   editStudent();

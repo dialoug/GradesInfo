@@ -1,6 +1,7 @@
 package com.study.gradesInfo.service.impl;
 
 import com.study.gradesInfo.entity.user.Admin;
+import com.study.gradesInfo.entity.user.User;
 import com.study.gradesInfo.mapper.AdminMapper;
 import com.study.gradesInfo.mapper.UserMapper;
 import com.study.gradesInfo.service.AdminService;
@@ -26,7 +27,8 @@ public class AdminServiceImp implements AdminService {
 
     @Override
     public void deleteAdmin(String workId) {
-        userMapper.deleteUser();
+        userMapper.deleteUser(workId);
+        userMapper.deleteUserType(workId);
         adminMapper.deleteAdmin(workId);
     }
 
@@ -43,6 +45,16 @@ public class AdminServiceImp implements AdminService {
     @Override
     public List<Admin> getAdminList() {
         return adminMapper.getAllAdmin();
+    }
+
+    @Override
+    public Admin findAdminByWorkId(String workId) {
+        return adminMapper.findAdminByAdminId(workId);
+    }
+
+    @Override
+    public User findUserByWorkId(String workId) {
+        return adminMapper.findUserByWorkId(workId);
     }
 
 }

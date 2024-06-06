@@ -1,7 +1,6 @@
 package com.study.gradesInfo.service.impl;
 
 import com.study.gradesInfo.entity.Student;
-import com.study.gradesInfo.entity.user.User;
 import com.study.gradesInfo.mapper.StudentMapper;
 import com.study.gradesInfo.mapper.UserMapper;
 import com.study.gradesInfo.service.StudentService;
@@ -34,12 +33,15 @@ public class StudentServiceImp implements StudentService {
     @Override
     public void addStudentClass(String studentId, String classId) {
         studentMapper.addStudentClass(studentId, classId);
+        studentMapper.updateStudentNumber(classId);
     }
 
     @Override
     public void deleteStudent(String studentId) {
         studentMapper.deleteStudent(studentId);
         studentMapper.deleteStudentTeacher(studentId);
+        studentMapper.deleteStudentClass(studentId);
+        studentMapper.decStudentNumber(studentMapper.getClassByStudentId(studentId));
     }
 
 
@@ -51,6 +53,7 @@ public class StudentServiceImp implements StudentService {
     @Override
     public void updateClass(String studentId, String classId) {
         studentMapper.updateClass(studentId, classId);
+        studentMapper.updateStudentNumber(classId);
     }
 
 

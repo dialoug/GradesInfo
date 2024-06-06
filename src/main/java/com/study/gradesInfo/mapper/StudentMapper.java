@@ -43,4 +43,16 @@ public interface StudentMapper {
 
     @Delete("delete from student_teacher where studentid=#{studentId}")
     void deleteStudentTeacher(String studentId);
+
+    @Update("UPDATE class SET studentnumber=(SELECT COUNT(*) AS studentnumber FROM student_class where classId=#{classId}) WHERE classId=#{classId};")
+    void updateStudentNumber(String classId);
+
+    @Update("UPDATE class SET studentnumber=studentnumber-1 WHERE classid=#{classId};")
+    void decStudentNumber(String classId);
+
+    @Select("select * from student_class where studentid=#{stucentId}")
+    String getClassByStudentId(String studentId);
+
+    @Delete("delete from student_class where studentid=#{studentId}")
+    void deleteStudentClass(String studentId);
 }

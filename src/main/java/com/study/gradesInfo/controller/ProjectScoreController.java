@@ -2,8 +2,7 @@ package com.study.gradesInfo.controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.study.gradesInfo.entity.ProjectScore;
-import com.study.gradesInfo.entity.Student;
+import com.study.gradesInfo.entity.*;
 import com.study.gradesInfo.entity.utils.Result;
 import com.study.gradesInfo.service.ProjectScoreService;
 import com.study.gradesInfo.service.StudentService;
@@ -135,5 +134,110 @@ public class ProjectScoreController {
         }
         fileUtil.closeFile();
         return Result.success(results);
+    }
+
+    @PostMapping("/addTeam")
+    public Result addTeam(@RequestBody Team team) {
+        if (!projectScoreService.findTeam(team))
+            projectScoreService.addTeam(team);
+        System.out.println(team);
+        return Result.success();
+    }
+
+    @PostMapping("/deleteTeam")
+    public Result deleteTeam(@RequestBody Team team) {
+        projectScoreService.deleteTeam(team);
+        System.out.println(team);
+        return Result.success();
+    }
+
+    @PostMapping("/addSchedule")
+    public Result addSchedule(@RequestBody Schedule schedule) {
+        if (!projectScoreService.findSchedule(schedule)) {
+            projectScoreService.addSchedule(schedule);
+
+        } else {
+            projectScoreService.updateSchedule(schedule);
+        }
+
+        System.out.println(schedule);
+        return Result.success();
+    }
+
+    @PostMapping("/deleteSchedule")
+    public Result deleteSchedule(@RequestBody Schedule schedule) {
+        projectScoreService.deleteSchedule(schedule);
+        System.out.println(schedule);
+        return Result.success();
+    }
+
+    @GetMapping("/getSchedule")
+    public Result getSchedule(@RequestParam String matchId, @RequestParam String projectId) {
+        System.out.println(matchId);
+        System.out.println(projectId);
+        List<Schedule> schedules = projectScoreService.getSchedule(matchId, projectId);
+        System.out.println(schedules);
+        return Result.success(schedules);
+    }
+
+    @GetMapping("/getTeamMember")
+    public Result getTeamMember(@RequestParam String matchId, @RequestParam String projectId, @RequestParam String teamname) {
+        List<Team> schedules = projectScoreService.getTeamMember(matchId, projectId, teamname);
+        System.out.println(schedules);
+        return Result.success(schedules);
+    }
+
+    @PostMapping("/addRanking")
+    public Result addRanking(@RequestBody Ranking ranking) {
+        if (projectScoreService.findRanking(ranking) == null) {
+            projectScoreService.addRanking(ranking);
+        } else {
+            projectScoreService.updateRankingRanking(ranking);
+            projectScoreService.updateRankingStudentId(ranking);
+        }
+        System.out.println(ranking);
+        return Result.success();
+    }
+
+    @PostMapping("/deleteRanking")
+    public Result deleteRanking(@RequestBody Ranking ranking) {
+        projectScoreService.deleteRanking(ranking);
+        System.out.println(ranking);
+        return Result.success();
+    }
+
+    @GetMapping("/getRanking")
+    public Result getRanking(@RequestParam String matchId, @RequestParam String projectId) {
+        List<Ranking> rankings = projectScoreService.getRanking(matchId, projectId);
+        System.out.println(rankings);
+        return Result.success(rankings);
+    }
+
+    @GetMapping("/getTeamList")
+    public Result getTeamList(@RequestParam String matchId, @RequestParam String projectId) {
+        List<Team> teams = projectScoreService.getTeamList(matchId, projectId);
+        System.out.println(teams);
+        return Result.success(teams);
+    }
+
+    @GetMapping("/getTeamRanking")
+    public Result getTeamRanking(@RequestParam String matchId, @RequestParam String projectId) {
+        List<Team> teams = projectScoreService.getTeamRanking(matchId, projectId);
+        System.out.println(teams);
+        return Result.success(teams);
+    }
+
+    @PostMapping("/addTeamRanking")
+    public Result addTeamRanking(@RequestBody Team team) {
+        projectScoreService.updateTeamRanking(team);
+        System.out.println(team);
+        return Result.success();
+    }
+
+    @PostMapping("/deleteTeamRanking")
+    public Result deleteTeamRanking(@RequestBody Team team) {
+        projectScoreService.deleteTeamRanking(team);
+        System.out.println(team);
+        return Result.success();
     }
 }

@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class Match {
-    @NotNull
+
     private Long Id;
     @NotNull
     private String matchId;

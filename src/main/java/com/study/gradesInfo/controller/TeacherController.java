@@ -43,8 +43,9 @@ public class TeacherController {
 
     //管理员权限
     @PutMapping("/updateInfo")
-    public Result updateTeacher(Teacher teacher) {
+    public Result updateTeacher(@RequestBody Teacher teacher) {
         teacherService.updateTeacher(teacher);
+        System.out.println(teacher + "更新教师信息");
         return Result.success();
     }
 
@@ -96,5 +97,6 @@ public class TeacherController {
         System.out.println("当前学生教师" + t);
         return Result.success(t);
     }
+
 
 }

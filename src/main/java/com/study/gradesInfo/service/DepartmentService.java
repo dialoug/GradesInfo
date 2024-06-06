@@ -41,4 +41,5 @@ public interface DepartmentService {
     Academy getAcademyByTeacherId(String teacherId);
 
     Class getClassByStudentId(String studentId);
+
 }

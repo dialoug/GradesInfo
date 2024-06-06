@@ -6,8 +6,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class Admin {
-    private String WorkId;
-    private String Name;
-    private String PhoneNumber;
+    private String workId;
+    private String name;
+    private String phoneNumber;
 
 }
