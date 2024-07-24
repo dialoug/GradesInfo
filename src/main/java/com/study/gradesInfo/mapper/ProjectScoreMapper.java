@@ -1,9 +1,6 @@
 package com.study.gradesInfo.mapper;
 
-import com.study.gradesInfo.entity.ProjectScore;
-import com.study.gradesInfo.entity.Ranking;
-import com.study.gradesInfo.entity.Schedule;
-import com.study.gradesInfo.entity.Team;
+import com.study.gradesInfo.entity.*;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -119,4 +116,34 @@ public interface ProjectScoreMapper {
 
     @Update("update team_schedule set ranking=null,date=null where matchid=#{matchId} and projectid=#{projectId} and teamname=#{teamname}")
     void deleteTeamRanking(Team team);
+
+    @Select("select * from ranking where matchid=#{matchId}")
+    List<Ranking> getProjectRanking(String matchId);
+
+    @Select("select * from gradeinfo where matchid=#{matchId} and projectid=#{projectId} and topranking<=#{ranking} and underranking>=#{ranking}")
+    GradeInfo getGradeInfo(String matchId, String projectId, String ranking);
+
+    @Select("select * from team_schedule where matchid=#{matchId}")
+    List<Team> getTeamProjectRanking(String matchId);
+
+    @Select("select * from team_student where matchid=#{matchId} and projectid=#{projectId} and teamname=#{teamname}")
+    List<Team> getStudentByTeamname(String matchId, String projectId, String teamname);
+
+    @Select("select prizename from gradeinfo where matchid=#{matchId} and projectid=#{projectId} and topranking<=#{ranking} and underranking>=#{ranking}")
+    String getPrizeName(String matchId, String projectId, int ranking);
+
+    @Select("select * from ranking where studentid=#{studentId}")
+    List<Ranking> getRankingByStudentId(String studentId);
+
+    @Select("select * from team_student where studentid=#{studentId}")
+    List<Team> getTeamByStudentId(String studentId);
+
+    @Select("select ranking from team_schedule where teamname=#{teamname}")
+    Integer getTeamRankingByTeamName(String teamname);
+
+    @Select("select name from matchform where matchid=#{matchId}")
+    String getMatchNameByMatchId(String matchId);
+
+    @Select("select name from project where projectid=#{projectId}")
+    String getProjectNameByProjectId(String projectId);
 }

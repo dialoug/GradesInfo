@@ -1,9 +1,6 @@
 package com.study.gradesInfo.service.impl;
 
-import com.study.gradesInfo.entity.GradeInfo;
-import com.study.gradesInfo.entity.Project;
-import com.study.gradesInfo.entity.ProjectInfo;
-import com.study.gradesInfo.entity.Unit;
+import com.study.gradesInfo.entity.*;
 import com.study.gradesInfo.mapper.ProjectMapper;
 import com.study.gradesInfo.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,6 +103,26 @@ public class ProjectServiceImp implements ProjectService {
     @Override
     public ProjectInfo getProjectInfo(String matchId, String projectId) {
         return projectMapper.getProjectInfo(matchId, projectId);
+    }
+
+    @Override
+    public ProjectPoint getProjectPoint(String matchId, String projectId) {
+        return projectMapper.getProjectPoint(matchId, projectId);
+    }
+
+    @Override
+    public void addProjectPoint(ProjectPoint projectPoint) {
+        projectMapper.addProjectPoint(projectPoint);
+    }
+
+    @Override
+    public void updateProjectPoint(ProjectPoint projectPoint) {
+        projectMapper.updateProjectPoint(projectPoint);
+    }
+
+    @Override
+    public String getUnitByMatchIdAndProjectId(String matchId, String projectId) {
+        return projectMapper.getUnitByMatchIdAndProjectId(matchId, projectId);
     }
 
 }

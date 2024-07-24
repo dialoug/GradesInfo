@@ -13,21 +13,14 @@ public class Config implements WebMvcConfigurer {
     private LoginInterceptor loginInterceptor;
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-
         registry.addInterceptor(loginInterceptor).excludePathPatterns(
                 "/user/login",
                 "/user/register",
-                "/score/list",
-                "/score/search",
-                "/match/getMatch",
-                "/match/list",
-                "/project/list",
-                "/project/getListByMatchId",
-                "/student/getStudentById",
-                "/department/academyByClassId",
-                "/department/classByStudentId"
+                "/score/**",
+                "/match/**",
+                "/project/**",
+                "/student/**",
+                "/department/**"
         );
-
     }
-
 }

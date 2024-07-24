@@ -1,9 +1,7 @@
 package com.study.gradesInfo.service;
 
-import com.study.gradesInfo.entity.ProjectScore;
-import com.study.gradesInfo.entity.Ranking;
-import com.study.gradesInfo.entity.Schedule;
-import com.study.gradesInfo.entity.Team;
+import com.study.gradesInfo.entity.*;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -72,4 +70,17 @@ public interface ProjectScoreService {
     void updateTeamRanking(Team team);
 
     void deleteTeamRanking(Team team);
+
+    List<Ranking> getProjectRanking(String matchId);
+
+    GradeInfo getGradeInfo(String matchId, String projectId, String ranking);
+
+    List<Team> getTeamProjectRanking(String matchId);
+
+
+    List<Team> getStudentByTeamname(String matchId, String projectId, String teamname);
+
+    String getPrizeName(String matchId, String projectId, int ranking);
+
+    List<StudentGrade> getRankingByStudentId(String studentId);
 }

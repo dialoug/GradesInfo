@@ -1,9 +1,6 @@
 package com.study.gradesInfo.controller;
 
-import com.study.gradesInfo.entity.GradeInfo;
-import com.study.gradesInfo.entity.Project;
-import com.study.gradesInfo.entity.ProjectInfo;
-import com.study.gradesInfo.entity.Unit;
+import com.study.gradesInfo.entity.*;
 import com.study.gradesInfo.entity.department.Academy;
 import com.study.gradesInfo.entity.department.Class;
 import com.study.gradesInfo.entity.utils.Result;
@@ -132,4 +129,27 @@ public class ProjectController {
         return Result.success((projectInfo));
     }
 
+    @PostMapping("updateProjectPoint")
+    public Result updateProjectPoint(@RequestBody ProjectPoint projectPoint) {
+        System.out.println(projectPoint);
+        if (projectService.getProjectPoint(projectPoint.getMatchId(), projectPoint.getProjectId()) == null) {
+            projectService.addProjectPoint(projectPoint);
+        } else {
+            projectService.updateProjectPoint(projectPoint);
+        }
+        return Result.success();
+    }
+
+    @GetMapping("/getProjectPoint")
+    public Result<ProjectPoint> getProjectPoint(@RequestParam String matchId, @RequestParam String projectId) {
+        ProjectPoint projectPoint = projectService.getProjectPoint(matchId, projectId);
+        System.out.println(projectPoint);
+        return Result.success(projectPoint);
+    }
+
+    @GetMapping("/getUnit")
+    public Result getUnit(@RequestParam String matchId, @RequestParam String projectId) {
+        String unit = projectService.getUnitByMatchIdAndProjectId(matchId, projectId);
+        return Result.success(unit);
+    }
 }

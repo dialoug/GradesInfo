@@ -1,9 +1,6 @@
 package com.study.gradesInfo.mapper;
 
-import com.study.gradesInfo.entity.GradeInfo;
-import com.study.gradesInfo.entity.Project;
-import com.study.gradesInfo.entity.ProjectInfo;
-import com.study.gradesInfo.entity.Unit;
+import com.study.gradesInfo.entity.*;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -64,4 +61,16 @@ public interface ProjectMapper {
 
     @Select("select * from match_project where matchid=#{matchId} and projectid=#{projectId}")
     ProjectInfo getProjectInfo(String matchId, String projectId);
+
+    @Select("select * from gamepoint where matchid=#{matchId} and projectid=#{projectId}")
+    ProjectPoint getProjectPoint(String matchId, String projectId);
+
+    @Insert("insert into gamepoint(matchid, projectid, point)VALUES (#{matchId},#{projectId},#{point})")
+    void addProjectPoint(ProjectPoint projectPoint);
+
+    @Update("update gamepoint set point=#{point} where matchid=#{matchId} and projectId=#{projectId}")
+    void updateProjectPoint(ProjectPoint projectPoint);
+
+    @Select("select unit from match_project where matchid=#{matchId} and projectid=#{projectId}")
+    String getUnitByMatchIdAndProjectId(String matchId, String projectId);
 }

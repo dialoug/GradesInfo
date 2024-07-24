@@ -1,9 +1,6 @@
 package com.study.gradesInfo.service;
 
-import com.study.gradesInfo.entity.GradeInfo;
-import com.study.gradesInfo.entity.Project;
-import com.study.gradesInfo.entity.ProjectInfo;
-import com.study.gradesInfo.entity.Unit;
+import com.study.gradesInfo.entity.*;
 
 import java.util.List;
 
@@ -45,4 +42,12 @@ public interface ProjectService {
     void updateProjectInfo(ProjectInfo projectInfo);
 
     ProjectInfo getProjectInfo(String matchId, String projectId);
+
+    ProjectPoint getProjectPoint(String matchId, String projectId);
+
+    void addProjectPoint(ProjectPoint projectPoint);
+
+    void updateProjectPoint(ProjectPoint projectPoint);
+
+    String getUnitByMatchIdAndProjectId(String matchId, String projectId);
 }

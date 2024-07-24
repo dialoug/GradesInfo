@@ -15,13 +15,13 @@ public interface MatchMapper {
     @Select("select * from matchform where matchid=#{matchId}")
     Match getMatchById(String matchId);
 
-    @Insert("insert into matchform(name, matchid, description, date) values (#{name},#{matchId},#{description},now())")
+    @Insert("insert into matchform(name, matchid, description, date) values (#{name},#{matchId},#{description},#{date})")
     void addMatch(Match match);
 
     @Delete("delete from matchform where matchid=#{matchId}")
     void deleteMatch(String matchId);
 
-    @Update("update matchform set name=#{name},description=#{description} where matchid=#{matchId}")
+    @Update("update matchform set name=#{name},description=#{description},date=#{date} where matchid=#{matchId}")
     void updateMatch(Match match);
 
     @Select("select projectid from match_project where matchid=#{matchId} and projectid=#{projectId}")

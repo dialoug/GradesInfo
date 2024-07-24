@@ -3,11 +3,8 @@ package com.study.gradesInfo.entity;
 import lombok.Data;
 
 @Data
-public class GradeInfo {
+public class ProjectPoint {
     String matchId;
     String projectId;
-    String prizeName;
-    int topRanking;
-    int underRanking;
-    boolean grade;
+    int point;
 }

@@ -240,4 +240,51 @@ public class ProjectScoreController {
         System.out.println(team);
         return Result.success();
     }
+
+    @GetMapping("/getProjectRanking")
+    public Result getProjectRanking(@RequestParam String matchId) {
+        System.out.println(matchId);
+        List<Ranking> rankings = projectScoreService.getProjectRanking(matchId);
+        System.out.println(rankings);
+        return Result.success(rankings);
+    }
+
+    @GetMapping("/getTeamProjectRanking")
+    public Result getTeamProjectRanking(@RequestParam String matchId) {
+        System.out.println(matchId);
+        List<Team> teams = projectScoreService.getTeamProjectRanking(matchId);
+        System.out.println(teams);
+        return Result.success(teams);
+    }
+
+    @GetMapping("/isAddGrade")
+    public Result isAddGrade(@RequestParam String matchId, @RequestParam String projectId, @RequestParam String ranking) {
+        GradeInfo gradeInfo = projectScoreService.getGradeInfo(matchId, projectId, ranking);
+        System.out.println(gradeInfo);
+        return Result.success(gradeInfo);
+    }
+
+    @GetMapping("/getStudentByTeamname")
+    public Result getStudentByTeamname(@RequestParam String matchId, @RequestParam String projectId, @RequestParam String teamname) {
+        System.out.println(teamname);
+        List<Team> teams = projectScoreService.getStudentByTeamname(matchId, projectId, teamname);
+        System.out.println(teams);
+        return Result.success(teams);
+    }
+
+    @GetMapping("/getPrizeName")
+    public Result getPrizeName(@RequestParam String matchId, @RequestParam String projectId, @RequestParam int ranking) {
+
+        String prizeName = projectScoreService.getPrizeName(matchId, projectId, ranking);
+        System.out.println(prizeName);
+        return Result.success(prizeName);
+    }
+
+    @GetMapping("/getRankingByStudent")
+    public Result getRankingByStudent(@RequestParam String studentId) {
+        List<StudentGrade> studentGrades = projectScoreService.getRankingByStudentId(studentId);
+
+        System.out.println(studentGrades);
+        return Result.success(studentGrades);
+    }
 }
